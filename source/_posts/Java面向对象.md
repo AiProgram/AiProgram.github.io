@@ -26,7 +26,8 @@ categories:
   1. 当存在静态和非静态部分时，静态部分先于非静态部分初始化。
   2. 当规则 1 无法判断时，父类部分先于子类初始化。
   3. 当规则 1，2均无法判断时，初始化顺序：属性->代码块->构造器。
-  4. 综合规则 1，2，3，我们有最终顺序
+  4. 1，2，3全部相同时，按照定义的顺序执行。
+  5. 综合规则 1，2，3，我们有最终顺序
   
   >     1. 父类的静态成员变量
   >     2. 父类的静态代码块
@@ -87,4 +88,50 @@ categories:
 + 类似普通类，接口的源文件也保存在`.java`文件中，字节码文件也保存在`.class`文件中。
 + 只有`static`和`final`变量可以放在接口中。
 + 默认情况下，不特意指定的话，接口是被`abstract`隐式修饰的，接口的方法是被`public abstract`隐性修饰，变量被`public static final`隐性修饰。不能人为设置与上述修饰符矛盾的修饰符，会报错。
++ 抽象类可以有静态代码块和静态方法，但是接口不能有。
++ 但是在JDK 1.8以后接口可以有静态方法以及方法体，使用`default`标记。
++ 仅有抽象类可以在实现接口时不实现所有的方法。
++ 在实现接口的方法时，方法名、参数必须一致，返回值必须兼容。
++ **注意**：接口可以继承接口，同样使用`extends`关键字，此外接口可以继承多个接口，例如
 
+```java
+public interface Hockey extends Sports, Event
+```
+
++ 在接口的继承中，我们经常用到没有任何方法的空接口，这种接口可以称为标记接口，例如
+
+```java
+package java.util;
+public interface EventListener
+{}
+```
+
+## 枚举类基础知识
+
++ 枚举类的关键字：`enum`，使用与普通数据类型更相似，注意与class定义方式区分：
+
+```java
+enum Color 
+{ 
+    RED, GREEN, BLUE; 
+} 
+```
+
++ 枚举类是一种特殊的类，例如上述的Color枚举类的每一种枚举对象都是一个Color类对象，且被`public static final`修饰：
+
+```java
+class Color
+{
+     public static final Color RED = new Color();
+     public static final Color BLUE = new Color();
+     public static final Color GREEN = new Color();
+}
+```
+
+
+
++ 枚举类是类，且能有自己的方法、变量、构造函数，**注意**：其构造函数只能是private，这是因为枚举类不允许随意修改枚举数量。
++ 枚举类有三个常用函数：
+  1. `values()`：数组形式返回所有枚举值。
+  2. `ordinal()`：int 形式返回本枚举值的索引。
+  3. `valueOf`：依据枚举值名称获得对应枚举值。
