@@ -82,3 +82,118 @@ E set(int index, E e)//修改指定未知元素，返回原来值
   + `ListIterator.hasNext()/next()`常用于向后遍历，向前则是`hasPrevious()/previous()`
   + ListIterator也有`add(E),remove(),E set(E e)`方法，建议使用。
   + 注意：ListIterator中，`remove()`的上个方法必须是`next/previous`，不能是`remove/add`。`add`不会影响下一次`next`但是会影响`previous`
+
+## Java中的String
+
+### CharSequence
+
++ CharSequence是一个接口，String、StringBuilder、StringBuffer都实现了这个接口。
++ CharAt()、length()、toString()、toCharSequence()都是实现了这个接口的方法。
+
+### String的内存模型及实现
+
++ String底层使用字符数组实现，字符数组使用final修饰说明它的引用不能修改，同时这个数组定义为String类的private变量，向外没有提供直接修改的方法。本身String提供的连接等函数都是新建了一个String返回的。
++ 综上所述我们说String是定义后就不变的，我们最多只能修改指向String类对象的地址。本身String对象是不会变的。**但是**：实际上，在违反封装性的前提下我们可以使用反射修改String内char数组，只不过这不属于正规方法。
++ **在JDK 1.8以后**，String常量池移动到了堆中。如果是直接使用`String a="hello"`定义的字符串，是放在常量池中的，如果是用`new`出来则放在常量池外部的堆中。但是new出来的字符串调用`intern()`获得的是常量池对应的引用。
++ **注意**：对应final修饰的String对象，编译器会依据不变的特性猜测，从而更大范围的利用常量池。例如
+
+```java
+String str1="a";
+final String str2="a";
+String str3=str1+"b";
+String str4=str2+"b";
+String str5="ab";
+str3==str5;// false
+str4==str5;// true
+String str6=new String(str1);
+str6==str1;
+```
+
+### String常用方法
+
++ Java中类似sprintf的字符串格式化方法：`String.format();`，用例见：
+
+```java
+String fs;
+fs = String.format("浮点型变量的值为 " +
+                   "%f, 整型变量的值为 " +
+                   " %d, 字符串变量的值为 " +
+                   " %s", floatVar, intVar, stringVar);
+```
+
++ `charAt(int index)`返回指定位置字符。
++ `int compareTo(String anotherString)`:字符对比。
++ `String substring(int beginIndex, int endIndex)`:返回字串（$[begin,end)$）。
++ 获得对应的charArray:`char[] toCharArray()`。
++ 用charArray构造String：`String String.valueOf(char[] data, int offset, int count)`，注意：这里用起点和长度定义。
++ `String.strip()`：去除前后部的空格字符，这里考虑到了Unicode所以空格字符不仅仅是ASCII码中的空格和控制字符。
++ `public String[] split(String regex)`:用于切分字符串，返回的是字符串数组。
+  + 注意：输入的是正则表达式，这意味着'\\'，'.'等正则式保留符号均需要转义才能正确工作。
+  + 同时，用于分割的字符不会出现在结果中，例如 "boo:and:foo" 被“:”分割得到 { "boo", "and", "foo" }，被"o"分割得到 { "b", "", ":and:f" }。
++ 查找字符出现的第一个位置：`int indexOf(String str, int fromIndex)`，查找出现的最后一个位置：`int lastIndexOf(String str, int fromIndex)`。其中fromIndex是查找开始位置。
+
+### StringBuilder
+
+## 高精度数字类型
+
+## Bit位相关位
+
+## 正则表达式
+
+> 可以参考[正则表达式菜鸟教程](https://www.runoob.com/java/java-regular-expressions.html)
+
++ Java缺少类似C的scanf那样能够处理"%s->%s"的输入规格化函数。但是Java的正则表达式更加强大，事实上也不是非常难用。
++ 正则表达式相关类主要位于*Java.util.regex*包下，最常用的`Pattern`和`Matcher`类。
++ 其中`Pattern`类主要用于正则式的预处理，`Matcher`类则用模式匹配输入的字符串。
+
+### 简单使用
+
++ Pattern一般使用静态方法`Pattern.complie(String regex)`获得，regex就是正则表达式
++ Matcher则使用`Pattern.matcher(String input)`获得，也可以用`Matcher.reset(CharSequence input)`重置。
++ Matcher的几个查找方法：
+
+|      方法       | 作用                                                         |
+| :-------------: | :----------------------------------------------------------- |
+|    lookingAt    | 只从输入字符串头部开始查找，但不是要求匹配整个串             |
+|     matches     | 匹配整个串                                                   |
+|      find       | 从头部开始匹配，**找到一个匹配子串就暂停**，可以提取匹配的子串。**暂停后可以继续查找下一部分输入串**，直到查到输入串的末尾。 |
+| find(int start) | 从指定位置开始find查找。                                     |
+
+以上方法均返回boolean表示成不成功。
+
++ 可见最复杂也最好用的是`find`方法。
+
+举个例子，我们输入"AB->CD;EF->GH;IJ->KL;"，我们想提取"AB CD EF GH IJ KL"则有
+
+```java
+Pattern pattern=Pattern.compile("([A-Z]+)->([A-Z]+);");
+Matcher matcher=pattern.matcher("AB->CD;EF->GH;IJ->KL;");
+while(matcher.find()) {
+    for(int i=1;i<=matcher.groupCount();i++) {
+        System.out.println(matcher.group(i));
+    }
+}
+/*
+AB
+CD
+EF
+...
+*/
+```
+
+我们想提取"AB->CD; EF->GH; IJ->KL;"则有：
+
+```java
+Pattern pattern=Pattern.compile("([A-Z]+)->([A-Z]+);");
+Matcher matcher=pattern.matcher("AB->CD;EF->GH;IJ->KL;");
+while(matcher.find()) {
+    System.out.println(matcher.group());
+}
+/*
+AB->CD;
+EF->GH;
+...
+*/
+```
+
++ 注意正则式中"(XX)"的使用，用于表示子匹配组，`group()`输出整个正则式的匹配串，`group(int i)，i>=1`输出该次匹配的第i个子匹配组。
