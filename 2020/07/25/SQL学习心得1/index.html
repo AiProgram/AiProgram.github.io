@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="本文章总结了SQL中最常用、最基础的语法。SQL的其他细节知识例如数据类型、操作符等不在此总结 DDL（Data Definition Languages）主要用于操作数据对象的定义，例如数据库、表、列、索引的定义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL学习心得1">
+<meta property="og:url" content="http://yoursite.com/2020/07/25/SQL%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%971/index.html">
+<meta property="og:site_name" content="糊涂虫的博客">
+<meta property="og:description" content="本文章总结了SQL中最常用、最基础的语法。SQL的其他细节知识例如数据类型、操作符等不在此总结 DDL（Data Definition Languages）主要用于操作数据对象的定义，例如数据库、表、列、索引的定义">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-24T16:26:15.000Z">
+<meta property="article:modified_time" content="2020-08-14T03:03:46.900Z">
+<meta property="article:author" content="糊涂虫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/25/SQL%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%971/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SQL学习心得1 | 糊涂虫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糊涂虫的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/SQL%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%971/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="糊涂虫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糊涂虫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SQL学习心得1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-24 16:26:15" itemprop="dateCreated datePublished" datetime="2020-07-24T16:26:15Z">2020-07-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 03:03:46" itemprop="dateModified" datetime="2020-08-14T03:03:46Z">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>本文章总结了SQL中最常用、最基础的语法。SQL的其他细节知识例如数据类型、操作符等不在此总结</strong></p>
+<h1 id="DDL（Data-Definition-Languages）"><a href="#DDL（Data-Definition-Languages）" class="headerlink" title="DDL（Data Definition Languages）"></a>DDL（Data Definition Languages）</h1><p><strong>主要用于操作数据对象的定义，例如数据库、表、列、索引的定义</strong></p>
+<a id="more"></a>
+
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="使用-切换数据库"><a href="#使用-切换数据库" class="headerlink" title="使用/切换数据库"></a>使用/切换数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">USE</span> dataBaseName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> databaseName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看数据库内所有表"><a href="#查看数据库内所有表" class="headerlink" title="查看数据库内所有表"></a>查看数据库内所有表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHOW TABLES;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> databaseName;</span><br></pre></td></tr></table></figure>
+
+<h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><ul>
+<li>其中column_name 是列名，column_type是列类型，constraints是定义列的约束。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tablename (column_name_1 column_type_1 <span class="keyword">constraints</span>，</span><br><span class="line">column_name_2 column_type_2 <span class="keyword">constraints</span> ，... column_name_n column_type_n</span><br><span class="line"><span class="keyword">constraints</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看表的详细信息"><a href="#查看表的详细信息" class="headerlink" title="查看表的详细信息"></a>查看表的详细信息</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DESC tableName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> tableName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改列"><a href="#修改列" class="headerlink" title="修改列"></a>修改列</h3><ul>
+<li>1-4依次是修改、添加、删除表中列、修改列名的命令。</li>
+<li><code>FIRST</code>表示把列置为第一位。<code>AFTER</code>则是指定列的前一列。</li>
+<li>注意MODIFY和CHANGE是互补的，前者使用更方便只需要写一次列名但是不能修改列名，而后者可以修改列名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">MODIFY</span> [<span class="keyword">COLUMN</span>] column_definition [<span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> col_name];</span><br><span class="line">2. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">ADD</span> [<span class="keyword">COLUMN</span>] column_definition [<span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> col_name];</span><br><span class="line">3. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">DROP</span> [<span class="keyword">COLUMN</span>] col_name;</span><br><span class="line">4. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">CHANGE</span> [<span class="keyword">COLUMN</span>] old_col_name column_definition [<span class="keyword">FIRST</span>|<span class="keyword">AFTER</span> col_name];</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">RENAME</span> [<span class="keyword">TO</span>] new_tablename;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DML（Data-Manipulation-Languages）"><a href="#DML（Data-Manipulation-Languages）" class="headerlink" title="DML（Data Manipulation Languages）"></a>DML（Data Manipulation Languages）</h1><p><strong>用于更新、查询、删除等操作具体的数据</strong></p>
+<p>与DDL对应的操作不同。</p>
+<ul>
+<li>DDL的删除：DROP，修改：ALTER，MODIFY，等，增加(插入)：ADD，查询：SHOW。</li>
+<li>而在DML中，删除：DELETE，FROM，修改：UPDATE，SET，增加：INSERT，查询：SELECT，FROM，WHERE。</li>
+</ul>
+<h2 id="插入行"><a href="#插入行" class="headerlink" title="插入行"></a>插入行</h2><ul>
+<li>单行插入记录<ul>
+<li>注意：filed可以不写但是不写就必须让values中的值与表的列一一对应。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tablename (field1,field2,……fieldn) <span class="keyword">VALUES</span>(value1,value2,……valuesn);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多行一次性插入记录</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tablename (field1, field2,……fieldn)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">(record1_value1, record1_value2,……record1_valuesn),</span><br><span class="line">(record2_value1, record2_value2,……record2_valuesn),</span><br><span class="line">……</span><br><span class="line">(recordn_value1, recordn_value2,……recordn_valuesn)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新多表的记录"><a href="#更新多表的记录" class="headerlink" title="更新多表的记录"></a>更新多表的记录</h2><ul>
+<li>$t_1,t_2$等是表名，显然我们也可以把本命令改为只改一个表的更新命令，那时无需指定属性列对应的表名了。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t1,t2…tn <span class="keyword">set</span> t1.field1=expr1,tn.fieldn=exprn [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询记录"><a href="#查询记录" class="headerlink" title="查询记录"></a>查询记录</h2><p>这是DML最重要、最复杂的内容了，此处仅介绍基础必备语法。</p>
+<ul>
+<li><h3 id="基础SELECT语法"><a href="#基础SELECT语法" class="headerlink" title="基础SELECT语法"></a>基础SELECT语法</h3><ul>
+<li>WHERE条件可以非常复杂。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION]</span><br><span class="line"><span class="keyword">SELECT</span> colName1, colName2,... <span class="keyword">FROM</span> tableName [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="排序SELECT语法"><a href="#排序SELECT语法" class="headerlink" title="排序SELECT语法"></a>排序SELECT语法</h3><ul>
+<li>不指定DESC：降序或者ASC：升序时，默认升序</li>
+<li>可有多个排序关键字。例如依次为A，B，则仅当A处相等时再按B排序。</li>
+<li>每个关键字均可执行升降序</li>
+<li>若有记录使用了所有关键字仍无规定顺序，最后结果是无序的。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION] [<span class="keyword">ORDER</span> <span class="keyword">BY</span> field1 [<span class="keyword">DESC</span>|<span class="keyword">ASC</span>] ， field2</span><br><span class="line">[<span class="keyword">DESC</span>|<span class="keyword">ASC</span>]，……fieldn [<span class="keyword">DESC</span>|<span class="keyword">ASC</span>]]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="限制显示数量SELECT语法"><a href="#限制显示数量SELECT语法" class="headerlink" title="限制显示数量SELECT语法"></a>限制显示数量SELECT语法</h3><ul>
+<li>offset_start是显示起点，row_count是显示条数</li>
+<li>limit属于MySQL拓展语法，其他数据库可能无法使用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ……[<span class="keyword">LIMIT</span> offset_start,<span class="keyword">row_count</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><ul>
+<li>聚合指：我们查询中用到的可能是多条记录，但是最后结果却只有一条。</li>
+<li>聚合函数例如SUM，COUNT，MIN，MAX</li>
+<li>having 和where 的区别在于having 是对聚合后的结果进行条件的过滤，例如筛选出COUNT结果符合要求的。而where 是在聚合前就对记录进行过滤，如果逻辑允许，我们尽可能用where 先过滤记录。</li>
+<li>有了GroupBy以后我们的聚类结果是分散的，WITH ROLLUP指最后再全部聚类查询一次，例如查询总人数而不仅是各部门总人数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [field1,field2,……fieldn] fun_name</span><br><span class="line"><span class="keyword">FROM</span> tablename</span><br><span class="line">[<span class="keyword">WHERE</span> where_contition]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> field1,field2,……fieldn</span><br><span class="line">[<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]]</span><br><span class="line">[<span class="keyword">HAVING</span> where_contition]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><ul>
+<li>连接查询包括了常提到的内、左、右、全连接查询</li>
+<li>如果我们使用逻辑运算来表示这几种连接查询，假设连接查询$t_1,t_2$那么有：内连接：$t_1\bigcap t_2$，左连接：$t_1\bigcup(t_1\bigcap t_1)$，右连接：$t_2\bigcup(t_1\bigcap t_2)$，全连接：$t_1\bigcup t_2$。</li>
+</ul>
+<p>内连接(示例)：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,deptname <span class="keyword">from</span> emp,dept <span class="keyword">where</span> emp.deptno=dept.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>左连接示例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,deptname <span class="keyword">from</span> emp <span class="keyword">left</span> <span class="keyword">join</span> dept <span class="keyword">on</span> emp.deptno=dept.deptno;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="子SELECT查询"><a href="#子SELECT查询" class="headerlink" title="子SELECT查询"></a>子SELECT查询</h3><ul>
+<li>也即使用一个SELECT子句的结果作为父级SELECT的输入</li>
+<li>子查询的关键字不仅有<code>in</code>，还有not in、=、!=、exists、not exists等等。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> deptno <span class="keyword">in</span> (<span class="keyword">select</span> deptno <span class="keyword">from</span> dept);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="多个SELECT结果组合在一起"><a href="#多个SELECT结果组合在一起" class="headerlink" title="多个SELECT结果组合在一起"></a>多个SELECT结果组合在一起</h3><ul>
+<li>这里的组合不修改行内部的内容，仅仅只是把结果行组合到一个结果中。</li>
+<li>UNION会对结果去重，相当于使用了DISTINCT，但是UNIONALL则不管重复全部组合。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t1</span><br><span class="line"><span class="keyword">UNION</span>|<span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t2</span><br><span class="line">……</span><br><span class="line"><span class="keyword">UNION</span>|<span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tn;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="DCL（Data-Control-Languages）"><a href="#DCL（Data-Control-Languages）" class="headerlink" title="DCL（Data Control Languages）"></a>DCL（Data Control Languages）</h1><p> <strong>用于设置数据库的各种访问权限、用户、用户组等</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/25/MySQL%E5%AD%A6%E4%B9%A0/" rel="prev" title="MySQL学习">
+      <i class="fa fa-chevron-left"></i> MySQL学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A01/" rel="next" title="计算机网络复习1">
+      计算机网络复习1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#DDL（Data-Definition-Languages）"><span class="nav-number">1.</span> <span class="nav-text">DDL（Data Definition Languages）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">1.1.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-切换数据库"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用&#x2F;切换数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据库"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看数据库内所有表"><span class="nav-number">1.1.3.</span> <span class="nav-text">查看数据库内所有表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除数据库"><span class="nav-number">1.1.4.</span> <span class="nav-text">删除数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表"><span class="nav-number">1.2.</span> <span class="nav-text">表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看表的详细信息"><span class="nav-number">1.2.2.</span> <span class="nav-text">查看表的详细信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除表"><span class="nav-number">1.2.3.</span> <span class="nav-text">删除表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改列"><span class="nav-number">1.2.4.</span> <span class="nav-text">修改列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改表名"><span class="nav-number">1.2.5.</span> <span class="nav-text">修改表名</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DML（Data-Manipulation-Languages）"><span class="nav-number">2.</span> <span class="nav-text">DML（Data Manipulation Languages）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插入行"><span class="nav-number">2.1.</span> <span class="nav-text">插入行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新多表的记录"><span class="nav-number">2.2.</span> <span class="nav-text">更新多表的记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除记录"><span class="nav-number">2.3.</span> <span class="nav-text">删除记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询记录"><span class="nav-number">2.4.</span> <span class="nav-text">查询记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础SELECT语法"><span class="nav-number">2.4.1.</span> <span class="nav-text">基础SELECT语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序SELECT语法"><span class="nav-number">2.4.2.</span> <span class="nav-text">排序SELECT语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制显示数量SELECT语法"><span class="nav-number">2.4.3.</span> <span class="nav-text">限制显示数量SELECT语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合查询"><span class="nav-number">2.4.4.</span> <span class="nav-text">聚合查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接查询"><span class="nav-number">2.4.5.</span> <span class="nav-text">连接查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子SELECT查询"><span class="nav-number">2.4.6.</span> <span class="nav-text">子SELECT查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多个SELECT结果组合在一起"><span class="nav-number">2.4.7.</span> <span class="nav-text">多个SELECT结果组合在一起</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DCL（Data-Control-Languages）"><span class="nav-number">3.</span> <span class="nav-text">DCL（Data Control Languages）</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">糊涂虫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糊涂虫</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

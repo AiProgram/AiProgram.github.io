@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="OSI，TCP&#x2F;IP协议栈OSI，TCP&#x2F;IP分层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机网络复习1">
+<meta property="og:url" content="http://yoursite.com/2020/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A01/index.html">
+<meta property="og:site_name" content="糊涂虫的博客">
+<meta property="og:description" content="OSI，TCP&#x2F;IP协议栈OSI，TCP&#x2F;IP分层">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-25T16:55:21.000Z">
+<meta property="article:modified_time" content="2020-08-14T03:03:46.900Z">
+<meta property="article:author" content="糊涂虫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A01/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>计算机网络复习1 | 糊涂虫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糊涂虫的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="糊涂虫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糊涂虫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机网络复习1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-25 16:55:21" itemprop="dateCreated datePublished" datetime="2020-07-25T16:55:21Z">2020-07-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 03:03:46" itemprop="dateModified" datetime="2020-08-14T03:03:46Z">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">计算机网络</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="OSI，TCP-IP协议栈"><a href="#OSI，TCP-IP协议栈" class="headerlink" title="OSI，TCP/IP协议栈"></a>OSI，TCP/IP协议栈</h1><h2 id="OSI，TCP-IP分层"><a href="#OSI，TCP-IP分层" class="headerlink" title="OSI，TCP/IP分层"></a>OSI，TCP/IP分层</h2><a id="more"></a>
+
+<ul>
+<li>OSI分七层，自底向上：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</li>
+<li>TCP/IP分四层：网络接口层（物理、链路合并）、网络层、传输层、应用层（会话、表示、应用合并）。</li>
+<li>学习中使用中和两者的五层结构：物理、链路、网络、传输、应用层（会话、表示、应用层合并）。</li>
+<li>不同层次设备名称：<ul>
+<li>物理：转发器</li>
+<li>链路：网桥</li>
+<li>网络：路由器</li>
+<li>网络以上：网关。但是路由器也常被称为网关。</li>
+</ul>
+</li>
+</ul>
+<h2 id="五层分层的作用及其协议栈"><a href="#五层分层的作用及其协议栈" class="headerlink" title="五层分层的作用及其协议栈"></a>五层分层的作用及其协议栈</h2><h3 id="物理层（Physical-Layer）"><a href="#物理层（Physical-Layer）" class="headerlink" title="物理层（Physical Layer）"></a>物理层（Physical Layer）</h3><ul>
+<li>物理层主要规定媒体传输接口的机械、电气、功能、过程特性</li>
+<li>物理层不考虑传输的是怎样的比特流，而是考虑比特流怎样传输，所以物理层没有所谓的网络协议栈。</li>
+</ul>
+<h3 id="数据链路层（Data-Link-Layer）"><a href="#数据链路层（Data-Link-Layer）" class="headerlink" title="数据链路层（Data Link Layer）"></a>数据链路层（Data Link Layer）</h3><h4 id="链路层作用"><a href="#链路层作用" class="headerlink" title="链路层作用"></a>链路层作用</h4><ul>
+<li>在网络上，不同的两个主机之间有可能通过多个中间主机连接。但是也有可能直接通过一段链路连接，且该链路上不存在中间主机。数据链路就是负责后一种最简单链路。</li>
+</ul>
+<h4 id="链路层组成"><a href="#链路层组成" class="headerlink" title="链路层组成"></a>链路层组成</h4><ul>
+<li>链路指的是物理链路，只有加上其上承载的通信协议才成为完整的数据链路。</li>
+<li>现在的网络适配器一般包含了物理、数据链路两层的功能。</li>
+<li>数据链路对应数据单元—<code>帧</code></li>
+<li>注意：<ol>
+<li>到数据链路为止，我们熟悉的<strong>TCP/IP</strong>协议都还<strong>没有出现</strong></li>
+<li>正因为TCP/IP都还在上面的网络层，所以更高级的协议更是<strong>没有出现</strong></li>
+</ol>
+</li>
+<li>计算机网络协议采用<strong>类似套娃</strong>的形式，这点和Java 的IO结构很像。除了链路层外，其他层<strong>均适用以下概括</strong>。<ol>
+<li>高层协议把自己的数据（包）传递到下一层，低层可能会在数据外加上一层封装，也有可能把高层数据分割成多份后在每一份外加上一层封装。低层协议所加的封装保存的就是协议所需的信息，例如数据长度、协议标志、数据源、接收者等等。</li>
+<li>这样数据依次向下传递直到物理层发送，协议就形成了一个高层协议在栈底的栈。而接收时协议栈出栈，每出栈一层协议，该层协议都会处理自己的封装，还原成高层协议需要的数据。</li>
+<li>如此一来，各层协议各司其职，都只需要处理自己负责的数据传输即可。</li>
+</ol>
+</li>
+</ul>
+<h4 id="链路层协议"><a href="#链路层协议" class="headerlink" title="链路层协议"></a>链路层协议</h4><ul>
+<li>链路层协议有多种，但是它们全部需要解决三大问题：<strong>封装成帧、透明传输、差错检测</strong></li>
+</ul>
+<h5 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h5><ul>
+<li>链路层对网络层（IP协议）传下来的数据使用封装：帧首部–数据段–帧尾部</li>
+<li>数据端的最大长度由MTU规定</li>
+<li>链路协议采用帧定界符来分割数据段的边界。帧前部使用SOH控制字符，帧尾部使用EOT控制字符，这两个字符都是ASCII码中不可打印的字符。当然ASCII码对应着二进制表达，它们就是两种特殊的二进制码。</li>
+</ul>
+<h5 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h5><ul>
+<li>封装成帧中的帧界定符显然有可能与数据段中的数据重合，此时如果不加以区分，那么数据段部分就有可能被错误的定位。</li>
+</ul>
+<h3 id="网络层（Network-Layer）"><a href="#网络层（Network-Layer）" class="headerlink" title="网络层（Network Layer）"></a>网络层（Network Layer）</h3><h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><ul>
+<li>网络层主要有IP协议、ARP（Address Resolution Protocol）、ICMP（Internet Contorl Message Protocol）、IGMP（Internet Group Management Protocol），但是<strong>这几个协议不是完全独立、并列</strong>的。IP需要用到ARP，ICMP、IGMP则需要用到IP协议。</li>
+</ul>
+<h4 id="IP地址分配"><a href="#IP地址分配" class="headerlink" title="IP地址分配"></a>IP地址分配</h4><ul>
+<li>IP地址（不含端口号）实际由两部分组成：网络段+主机号。正是因为有了两部分所以用子网掩码来分开。</li>
+<li>ABCD四类地址[待补充]</li>
+</ul>
+<h3 id="传输层（Transport-Layer）"><a href="#传输层（Transport-Layer）" class="headerlink" title="传输层（Transport Layer）"></a>传输层（Transport Layer）</h3><h4 id="传输层作用"><a href="#传输层作用" class="headerlink" title="传输层作用"></a>传输层作用</h4><ul>
+<li>为两台<strong>主机间的进程</strong>通信提供服务。<ul>
+<li>显然，网络的协议至下而上，服务的对象范围越来越小，网络层时服务的对象还可以是两台主机到了这里就是主机里的进程了。</li>
+</ul>
+</li>
+<li>到了传输层，通信对象由主机缩小为主机进程，主机是一个独立的个体但是进程在一个主机上有很多个。所以传输层出现了<strong>复用</strong>、<strong>分用</strong>分别对应发送和接收过程。<ul>
+<li>在复用、分用中多个进程使用同一个传输层协议，通过首部信息去区分。</li>
+</ul>
+</li>
+</ul>
+<h4 id="UDP（User-Datagram-Protocol）协议"><a href="#UDP（User-Datagram-Protocol）协议" class="headerlink" title="UDP（User Datagram Protocol）协议"></a>UDP（User Datagram Protocol）协议</h4><ul>
+<li>除了传输层协议基础的复用、分用功能，UDP只增加了差错检测功能。<ul>
+<li>不要以为数据链路层有了差错检测，传输层的差错检测就是多余的了。因为差错不止出现在链路层管辖的一段链路上，下层IP协议的处理、路由器的处理、电路出错都有可能导致数据在链路层正确而传输层出错。可以参考：<a href="https://www.zhihu.com/question/294657294" target="_blank" rel="noopener">在计算机网络中数据链路层和传输层都有流量控制和差错控制他们有什么区别？知乎</a></li>
+</ul>
+</li>
+<li>因为UDP的功能极少，TCP的大部分功能UDP都没有。</li>
+</ul>
+<h5 id="UDP特点"><a href="#UDP特点" class="headerlink" title="UDP特点"></a>UDP特点</h5><ol>
+<li><h4 id="TCP（Transmission-Control-Protocol）"><a href="#TCP（Transmission-Control-Protocol）" class="headerlink" title="TCP（Transmission Control Protocol）"></a>TCP（Transmission Control Protocol）</h4></li>
+</ol>
+<h5 id="TCP特点"><a href="#TCP特点" class="headerlink" title="TCP特点"></a>TCP特点</h5><ol>
+<li><p>TCP之所以不同于UDP，会主动拆包或者转包（把数据切分或者组合），也可以看作TCP的流量控制功能的一个效果或者说要求，因为流量控制要求TCP协议自行控制每次传输数据流的长度而不是应用直接管理。</p>
+<ul>
+<li>正是因为有了拆包和装包，才会由TCP沾包的问题。[待补充完整]</li>
+</ul>
+</li>
+<li><p>TCP报文中，<strong>ACK，ack，seq</strong>这三者是完全不同的。<strong>ACK</strong>和<strong>SYN</strong>，<strong>FIN</strong>类似是只能设置成0或者1的控制位，其中它们分别表示确认(同意)，同步（请求建立连接），结束（请求断开连接）。而<strong>seq, ack</strong>则分别是序号、确认号，一般用于停止等待协议、自动重传（AQS）、流量控制（滑动窗口）等功能中。注意：<strong>seq，ack</strong>同样会参与到TCP的连接建立、断开中，这里特别需要和<strong>ACK</strong>区分。此外：仅有ACK=1时ack字段才有意义。</p>
+</li>
+<li><p>TCP中的<strong>ack</strong>报文确认的是对方发送的报文数据序号，而<strong>seq</strong>是自己发送的报文数据序号。由于TCP是全双工通讯，双方都可以发送，所以同一方发送的<strong>ack,seq</strong>两个序号可以完全不相关。有一个例外就是即使没有发送数据，但是如果<strong>SYN=1/FIN=1</strong>（即属于连接管理的报文），那么也需要消耗一个序号<strong>seq</strong>，这里其实是为了让对方回复的<strong>ACK=1</strong>确认报文对应“唯一”的一个SYN/FIN报文。</p>
+</li>
+<li><p>TCP中的流量控制和拥塞控制作用是完全不同的：流量控制主要考虑到接收方的缓存区大小有限，需要控制发送方的发送速度以避免来不及处理。而拥塞控制考虑的是双方间网络质量对传输速度的限制，需要调整速度达到最大传输效率。</p>
+</li>
+<li><p>TCP的慢启动、拥塞避免（与拥塞控制区分）、快恢复、快重传<strong>均属于拥塞控制</strong>。注意：慢启动的慢特指启动的初始值小，不是增长速度。</p>
+<ol>
+<li>慢启动主要由拥塞窗口(cwnd，注意与流量控制的rwnd区分)控制，cwnd在慢启动初期每成功一个传输轮次就增大一倍，直到碰到预设的慢启动门限（阈值，ssthresh）。超过了慢启动门限就转入拥塞避免算法控制的范畴了。</li>
+<li>由于慢启动门限是慢启动与拥塞避免的交界处，显然它越接近于实际的值越好，所以传输中动态调整的除了拥塞窗口外就是慢启动门限了，后者取上一次cwnd/2.</li>
+</ol>
+</li>
+<li><p><strong>简洁总结TCP建立连接为什么是三次而不是两次握手，TCP断开连接为什么是四次（主动方为何要等待被动方）</strong></p>
+<ul>
+<li>建立连接的第三次握手是为了让双方都得知自己和对方的发送、接收情况。如果只有两次握手，则有可能客户端发现未成功连接而服务端没能发现连接不成功，此时无效链接消耗大量服务其资源。</li>
+<li>TCP的四次握手相比三次握手，主要是被动方的ACK报文和FIN报文不相同，三次握手中被动方的SYN和ACK报文是合二为一的。这是因为主动方能确认自己不再发送数据，但是被动方可能由于原因无法马上停止发送数据，所以被动方的ACK和FIN报文一前一后是有等待间隔的。</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/25/SQL%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%971/" rel="prev" title="SQL学习心得1">
+      <i class="fa fa-chevron-left"></i> SQL学习心得1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="next" title="Java面向对象">
+      Java面向对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#OSI，TCP-IP协议栈"><span class="nav-number">1.</span> <span class="nav-text">OSI，TCP&#x2F;IP协议栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI，TCP-IP分层"><span class="nav-number">1.1.</span> <span class="nav-text">OSI，TCP&#x2F;IP分层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五层分层的作用及其协议栈"><span class="nav-number">1.2.</span> <span class="nav-text">五层分层的作用及其协议栈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#物理层（Physical-Layer）"><span class="nav-number">1.2.1.</span> <span class="nav-text">物理层（Physical Layer）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据链路层（Data-Link-Layer）"><span class="nav-number">1.2.2.</span> <span class="nav-text">数据链路层（Data Link Layer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#链路层作用"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">链路层作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链路层组成"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">链路层组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链路层协议"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">链路层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#封装成帧"><span class="nav-number">1.2.2.3.1.</span> <span class="nav-text">封装成帧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#透明传输"><span class="nav-number">1.2.2.3.2.</span> <span class="nav-text">透明传输</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层（Network-Layer）"><span class="nav-number">1.2.3.</span> <span class="nav-text">网络层（Network Layer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意点"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IP地址分配"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">IP地址分配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传输层（Transport-Layer）"><span class="nav-number">1.2.4.</span> <span class="nav-text">传输层（Transport Layer）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#传输层作用"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">传输层作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP（User-Datagram-Protocol）协议"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">UDP（User Datagram Protocol）协议</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#UDP特点"><span class="nav-number">1.2.4.2.1.</span> <span class="nav-text">UDP特点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP（Transmission-Control-Protocol）"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">TCP（Transmission Control Protocol）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#TCP特点"><span class="nav-number">1.2.4.3.1.</span> <span class="nav-text">TCP特点</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">糊涂虫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糊涂虫</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>

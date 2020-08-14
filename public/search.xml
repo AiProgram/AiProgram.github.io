@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Java 学习心得2020-07-11</title>
+    <url>/2020/07/12/Java-%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%972020-07-11/</url>
+    <content><![CDATA[<ol>
+<li>byte，short，char运算后的结果只能是int及更大范围类型储存，虽然他们分别是一个，两个，两个字节</li>
+<li>强制类型转换有可能精度损失，溢出。再就是存在自动类型转换，例如普通整数不加类型声明默认视作int，如果是超出范围的整数在编译时会报错</li>
+<li>基本数据类型一般与引用数据类型对立</li>
+<li>栈放局部变量，堆放对象可以粗略指new出来的，还有一个方法区。当局部变量是对象时则栈里放指针指向对中的对象。数组算是对象，因为是new出来的。特别的，string放在方法区里的字符串常量池里。凡是方法里的全是局部变量</li>
+<li>String可以和基本数据类型直接做连接运算</li>
+<li>于C语言不同，boolean不作为数字看待，不参与数字的运算</li>
+<li>java版sprintf是string.format</li>
+<li>0b开头二进制，0开头八进制，0x开头16进制</li>
+<li>正数三码合一，负数反码是正数所有位含符号位取反，负数补码是反码再加一。为什么计算机用补码存所有数字呢，因为类似一字节最大正数是127，非符号位取反变成0，显然与正数0重复，所以取反后再加一避免重复。</li>
+<li>由9看来，负数只有补码可以表示，所以倒推其绝对值是先减一然后数值部分取反，最后符号位取反</li>
+<li>转换进制有integer中的方法</li>
+<li>arrays，utils，collections等复数名称包或者类一般是工具类</li>
+<li>面向对象三大特性，封装表示一个类可以隐藏自己实现，继承表示子类父类等，多态表示一个子类可以有不同表现</li>
+<li>Java一个文件可以有多个并行类，但是标public的只能有一个且标了就要与文件名一致便于查找</li>
+<li>域，字段等同于属性等同于成员变量</li>
+<li>虚拟机栈即我们常说的栈</li>
+<li>对象变量一般存在栈中，指向堆中的对象体。当把一个对象直接赋值给另一个对象时实际上是复制了一份栈中的地址，所以会有两个栈中的对象指向堆中的同一个对象体。</li>
+<li>Java中没有显式的指针，但是操作对象实际用的是指向一段内存地址的指针。</li>
+<li>JAVA中也只有值传递，所有函数参数实质都是在函数体内复制了一份与外部隔离的参数到栈中。因为复制的对象参数实质是对象内容地址，所以我们也能在函数中修改传入的对象内容。但是我们不能在函数内修改传入的对象变量，例如把它指向另一个对象。</li>
+<li>java方法传入参数叫形参</li>
+<li>binarySearch中把非负数作为找到的位置，而把可插入位置的相反数作为没找到标志</li>
+<li>与一般意义上的java虚拟机栈对应的是本地方法栈，用于java于c等native方法交互</li>
+<li>方法，静态变量也有特殊的方法区储存，与堆和栈隔离</li>
+<li>一个类中允许有多个重名方法，称为重载。重载只看形参数量和种类不看其他，不看返回值也不看形参名。此外重载的匹配有优先级，例如1可以是int，long，float，double，但是可以匹配int时就优先匹配int。</li>
+<li>权限设置符可以使用在类、属性、方法、内部类上</li>
+<li>权限顺序为private:仅本类，默认：仅本包，protected：不同包子类，public：整个项目所有地方</li>
+<li>int储存约10位10十进制数，short约5位10进制数，long约20位十进制数</li>
+<li>java常见包的位置（类库中的位置）<ul>
+<li><code>java.lang</code> 该包提供了Java编程的基础类，例如 Object、Math、String、StringBuffer、System、Thread等，不使用该包就很难编写Java代码了。</li>
+<li><code>java.util</code> 该包提供了包含集合框架、遗留的集合类、事件模型、日期和时间实施、国际化和各种实用工具类（字符串标记生成器、随机数生成器和位数组）。</li>
+<li><code>java.io</code> 该包通过文件系统、数据流和序列化提供系统的输入与输出。</li>
+<li><code>java.net</code> 该包提供实现网络应用与开发的类。</li>
+<li><code>java.sql</code> 该包提供了使用Java语言访问并处理存储在数据源（通常是一个关系型数据库）中的数据API。</li>
+<li><code>java.awt</code> 这两个包提供了GUI设计与开发的类。java.awt包提供了创建界面和绘制图形图像的所有类，而javax.swing包提供了一组轻量级的组件，尽量让这些组件在所有平台上的工作方式相同。</li>
+<li><code>javax.swing</code></li>
+<li>`java.text 提供了与自然语言无关的方式来处理文本、日期、数字和消息的类和接口。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>杂项</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java修饰符</title>
+    <url>/2020/07/29/Java%E4%BF%AE%E9%A5%B0%E7%AC%A6/</url>
+    <content><![CDATA[]]></content>
+      <categories>
+        <category>Java</category>
+        <category>基础</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java多线程编程题-1</title>
+    <url>/2020/08/14/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%BC%96%E7%A8%8B%E9%A2%98-1/</url>
+    <content><![CDATA[<h2 id="3个线程论文轮流打印数字（消费资源）"><a href="#3个线程论文轮流打印数字（消费资源）" class="headerlink" title="3个线程论文轮流打印数字（消费资源）"></a>3个线程论文轮流打印数字（消费资源）</h2><a id="more"></a>
+
+<h3 id="使用synchronized、wait、notifyAll解决"><a href="#使用synchronized、wait、notifyAll解决" class="headerlink" title="使用synchronized、wait、notifyAll解决"></a>使用<code>synchronized、wait、notifyAll</code>解决</h3><ul>
+<li>首先我们需要为每个线程设定<strong>id</strong>，这主要是为了确定本线程是否能够消费，假定依次为$0,1,2$</li>
+<li>由于<code>synchronized</code>一次只能有一个锁对应<code>wait/notifyAll</code>指令，所以为了简洁和防止出错我们需要让三个线程公用一个锁对象，假定为<strong>lock</strong>。</li>
+<li>编程时，我们需要明确几点：<ol>
+<li>无论我们使用什么样的编码顺序，这三个线程最开始启动的顺序一定是无法保证的。（除非我们在确认线程1启动了后在线程1内部启动线程2）</li>
+<li>共用锁对象让我们无法保证下一次唤醒的线程的顺序</li>
+<li>因为1，2点，我们首先需要在线程被启动/唤醒时检测当前线程的运行条件，不能运行则自己wait放弃锁等待。如果可以运行则进行消费，然后notifyAll唤醒其他线程。检测运行条件可以使用<strong>id,count</strong>解决。</li>
+<li>需要注意线程退出问题：如果规定消费的总数是N，则最后一个回合只有$id=N%3$的线程能进入到消费阶段，一旦该线程退出则其他两个线程就阻塞在了$count=N+1$处。所以消费、阻塞检测两个过程都需要加入退出条件。</li>
+</ol>
+</li>
+<li>示例代码如下：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PrintThread1</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object LOCK = <span class="keyword">new</span> Object();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> count = <span class="number">0</span>; <span class="comment">// 计数，同时确定线程是否要加入等待队列，还是可以直接去资源队列里面去获取数据进行打印</span></span><br><span class="line">    <span class="keyword">private</span> LinkedList&lt;Integer&gt; queue;</span><br><span class="line">    <span class="keyword">private</span> Integer threadNo;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PrintThread1</span><span class="params">(LinkedList&lt;Integer&gt; queue, Integer threadNo)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.queue = queue;</span><br><span class="line">        <span class="keyword">this</span>.threadNo = threadNo;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (LOCK) &#123;</span><br><span class="line">                <span class="keyword">while</span> (count % <span class="number">3</span> != <span class="keyword">this</span>.threadNo) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (count &gt;= <span class="number">101</span>) &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        LOCK.wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (count &gt;= <span class="number">101</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                Integer val = <span class="keyword">this</span>.queue.poll();</span><br><span class="line">                System.out.println(<span class="string">"thread-"</span> + <span class="keyword">this</span>.threadNo + <span class="string">":"</span> + val);</span><br><span class="line">                count++;</span><br><span class="line"></span><br><span class="line">                LOCK.notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用ReentrantLock-Condition-await-signal实现"><a href="#使用ReentrantLock-Condition-await-signal实现" class="headerlink" title="使用ReentrantLock,Condition,await,signal实现"></a>使用<code>ReentrantLock,Condition,await,signal</code>实现</h3><ul>
+<li>有了这几个，我们首先可以把它当作synchronized锁用，主要需要注意在finally块中释放锁的问题，这里不再赘述。</li>
+<li>但是有了多个<code>Condtion</code>，我们可以不再无序一股脑地唤醒所有线程来竞争锁，我们可以为每一个线程设置一个Condition。那么每一个线程等待属于自己的<code>Condition.await</code>，由上一个线程结束消费时负责调用<code>Condition.signal</code>唤醒。</li>
+<li>在最后一个消费完成的线程中，可以一次性唤醒其他的线程让其他线程同样退出等待，结束运行。</li>
+<li>范例代码：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Condition;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrintNumber</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 多个线程共享这一个sequence数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> sequence=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> SEQUENCE_END =<span class="number">75</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    <span class="keyword">private</span> ReentrantLock lock;</span><br><span class="line">    <span class="keyword">private</span> Condition[] conditions;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">PrintNumber</span><span class="params">(Integer id,  ReentrantLock lock, Condition[] conditions)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">        <span class="keyword">this</span>.setName(<span class="string">"thread"</span> + id);</span><br><span class="line">        <span class="keyword">this</span>.lock = lock;</span><br><span class="line">        <span class="keyword">this</span>.conditions = conditions;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (sequence &gt;= <span class="number">0</span> &amp;&amp; sequence &lt; SEQUENCE_END) &#123;</span><br><span class="line">            lock.lock();</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">//对序号取模,如果不等于当前线程的id,则先唤醒其他线程,然后当前线程进入等待状态</span></span><br><span class="line">                <span class="keyword">while</span> (sequence % conditions.length != id) &#123;</span><br><span class="line">                    conditions[(id + <span class="number">1</span>) % conditions.length].signal();</span><br><span class="line">                    conditions[id].await();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(Thread.currentThread().getName() + <span class="string">" "</span> + sequence);</span><br><span class="line">                <span class="comment">//序号加1</span></span><br><span class="line">                sequence = sequence + <span class="number">1</span>;</span><br><span class="line">                <span class="comment">//唤醒当前线程的下一个线程</span></span><br><span class="line">                conditions[(id + <span class="number">1</span>) % conditions.length].signal();</span><br><span class="line">                <span class="comment">//当前线程进入等待状态</span></span><br><span class="line">                conditions[id].await();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                <span class="comment">//将释放锁的操作放到finally代码块中,保证锁一定会释放</span></span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//数字打印完毕,线程结束前唤醒其余的线程,让其他线程也可以结束</span></span><br><span class="line">        end();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">end</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        conditions[(id + <span class="number">1</span>) % conditions.length].signal();</span><br><span class="line">        conditions[(id + <span class="number">2</span>) % conditions.length].signal();</span><br><span class="line">        lock.unlock();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> threadCount = <span class="number">3</span>;</span><br><span class="line">        ReentrantLock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line">        Condition[] conditions = <span class="keyword">new</span> Condition[threadCount];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; threadCount; i++) &#123;</span><br><span class="line">            conditions[i] = lock.newCondition();</span><br><span class="line">        &#125;</span><br><span class="line">        PrintNumber[] printNumbers = <span class="keyword">new</span> PrintNumber[threadCount];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; threadCount; i++) &#123;</span><br><span class="line">            PrintNumber p = <span class="keyword">new</span> PrintNumber(i, lock, conditions);</span><br><span class="line">            printNumbers[i] = p;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (PrintNumber printNumber : printNumbers) &#123;</span><br><span class="line">            printNumber.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>显然本方法也可以<strong>高效</strong>的实现N个线程轮流打印的问题。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>多线程</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java常用库(算法常用)心得-1</title>
+    <url>/2020/07/24/Java%E5%B8%B8%E7%94%A8%E5%BA%93-%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8-%E5%BF%83%E5%BE%97-1/</url>
+    <content><![CDATA[<h1 id="Java常用库-算法常用-心得1"><a href="#Java常用库-算法常用-心得1" class="headerlink" title="Java常用库(算法常用)-心得1"></a>Java常用库(算法常用)-心得1</h1><p><strong>本文章主要总结最基本的Java库的使用，且在算法编程中经常用到</strong></p>
+<a id="more"></a>
+
+<h2 id="Collection、Map接口关系"><a href="#Collection、Map接口关系" class="headerlink" title="Collection、Map接口关系"></a>Collection、Map接口关系</h2><ul>
+<li>我们常说的Collection、Map的各种类实际上是实现了Collection、Map接口的各种实现类。</li>
+<li>Collection和Map接口都位于 <em>java.util</em> 下，它们之间不是实现的关系。</li>
+<li>它们的实现类也常常位于 <em>java.util</em> 下，注意<strong>不是位于</strong> <em>java.util.Collection/Map</em> 下！<ul>
+<li>由于多线程编程的特殊性，它们的实现类经常在 <em>java.util.concurrent</em> 下有着并发的实现类，形如<code>xxBlockingXX</code>、<code>xxConcurrentXX</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Java中的队列"><a href="#Java中的队列" class="headerlink" title="Java中的队列"></a>Java中的队列</h2><ul>
+<li>Java中的队列最容易想到<em>java.util.Queue</em>，但是实际上这只是标准的Queue接口，是<strong>不能直接使用</strong>的。我们需要寻找的是实现了这个接口的类。同理的还有双端队列<em>java.util.Deque</em>接口，我们也只能用它的实现类，注意：<code>Deque</code>接口实现了<code>Queue</code>接口，所以<code>Deque</code>实现类全都可以当成<code>Queue</code>使用。</li>
+<li><code>Deque</code>作为单端队列使用时，常用方法有进队列(进队尾)：<code>offer(E)</code>、出队列(取队首并删除)：<code>poll()</code>、取队首<code>peekFirst()</code>对应取队尾<code>peekLast()</code>。而作为双端队列使用时，以上的方法均转为<code>XXFirst()</code>、<code>XXLast()</code>方法。</li>
+<li><code>Deque</code>还可以作为Stack使用，这时方法有入栈：<code>push(E)</code>，出栈<code>pop()</code>，取栈顶<code>peek()</code>。</li>
+</ul>
+<ol>
+<li>实现了<code>Deque</code>接口的类，在 <em>java.util</em> 下的有<strong>ArrayDeque</strong>和<strong>LinkedList</strong>。</li>
+<li>还有一个很重要的：优先队列，位于 <em>java.util</em> 包下，名为<code>PriorityQueue</code>，它实现了<code>Queue</code>接口。它的顺序按照排序指定，默认情况下取出元素是升序，我们可以利用 Comparator 接口或者 Comparable接口指定排序。<ol>
+<li>注意：PriorityQueue使用Iterator遍历是不保证顺序的，可以使用<code>toArray()</code>方法转换为数组再排序遍历。</li>
+</ol>
+</li>
+</ol>
+<h2 id="Java中的链表"><a href="#Java中的链表" class="headerlink" title="Java中的链表"></a>Java中的链表</h2><h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><ul>
+<li>List接口提供了几种基础功能</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(String item)</span>  <span class="comment">//依次往后添加添加元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(String item, <span class="keyword">int</span> index)</span> <span class="comment">//在指定位置处添加元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="comment">//删除第几个元素（索引从0开始）</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(String item)</span> <span class="comment">//删除相同的元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">removeAll</span><span class="params">()</span> <span class="comment">//删除所有元素</span></span></span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E e)</span><span class="comment">//修改指定未知元素，返回原来值</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>需要注意的是：</p>
+<ol>
+<li><code>add</code>方法（不指定位置）默认是在末尾添加元素，这点可以由ArrayList特性记忆。</li>
+<li><code>add(item,index)</code>方法是用插入元素取代index位置，原index及其后元素均后移一位。同样可以由ArrayList记忆。</li>
+</ol>
+</li>
+<li><p>实现了List接口常见类有<code>ArrayList</code>、<code>LinkedList</code>、<code>Vector</code>、<code>Stack</code>。其中Vector和Stack使用了低效的同步策略，现在基本不用了被ArrayList和Deque替代。</p>
+</li>
+<li><p>List统统使用<code>java.util.Collections.sort</code>排序，结合<code>java.util.Comparator</code>实现自定义顺序。<strong>注意</strong>：Comparator需要实现的是<code>int compare()</code>方法而不是<code>compartTo()</code>方法。</p>
+</li>
+<li><p>List与数组的互相转换：</p>
+<ol>
+<li>List转换为数组：使用集合的方法<code>toArray(T[] array)</code>，例如：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String[] array = list.toArray(<span class="keyword">new</span> String[list.size()]);</span><br></pre></td></tr></table></figure>
+
+<p>这里使用了泛型，无需强制转换类型。如果使用无参<code>toArray()</code>则会出现强制转型错误。</p>
+<ol start="2">
+<li>数组转换为List：使用集合方法<code>Collections.addAll(arrayList, strArray)</code>，例如：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">ArrayList&lt; String&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;String&gt;(strArray.length);</span><br><span class="line">Collections.addAll(arrayList, strArray);</span><br></pre></td></tr></table></figure>
+
+<p>如果使用<code>asList()</code>则会出现获得的List无法增删的问题，因为该List是静态的。</p>
+</li>
+<li><p>List合并：</p>
+<ol>
+<li>使用<code>List.addAll(Collection c)</code>方法，会把输入List全部添加到原List。</li>
+<li>使用<code>List.retainAll(Collection c)</code>方法，会取交集，只保留两个List相同的元素。</li>
+</ol>
+</li>
+</ul>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><ul>
+<li>LinkedList由于其特殊的链表结构，推荐遍历方式是使用Iterator遍历，但是它的<strong>ListIterator</strong>功能更加强大。<ul>
+<li><code>List.listIterator(int index)</code>可以获得指定位置的迭代器。</li>
+<li><code>ListIterator.hasNext()/next()</code>常用于向后遍历，向前则是<code>hasPrevious()/previous()</code></li>
+<li>ListIterator也有<code>add(E),remove(),E set(E e)</code>方法，建议使用。</li>
+<li>注意：ListIterator中，<code>remove()</code>的上个方法必须是<code>next/previous</code>，不能是<code>remove/add</code>。<code>add</code>不会影响下一次<code>next</code>但是会影响<code>previous</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Java中的String"><a href="#Java中的String" class="headerlink" title="Java中的String"></a>Java中的String</h2><h3 id="CharSequence"><a href="#CharSequence" class="headerlink" title="CharSequence"></a>CharSequence</h3><ul>
+<li>CharSequence是一个接口，String、StringBuilder、StringBuffer都实现了这个接口。</li>
+<li>CharAt()、length()、toString()、toCharSequence()都是实现了这个接口的方法。</li>
+</ul>
+<h3 id="String的内存模型及实现"><a href="#String的内存模型及实现" class="headerlink" title="String的内存模型及实现"></a>String的内存模型及实现</h3><ul>
+<li>String底层使用字符数组实现，字符数组使用final修饰说明它的引用不能修改，同时这个数组定义为String类的private变量，向外没有提供直接修改的方法。本身String提供的连接等函数都是新建了一个String返回的。</li>
+<li>综上所述我们说String是定义后就不变的，我们最多只能修改指向String类对象的地址。本身String对象是不会变的。<strong>但是</strong>：实际上，在违反封装性的前提下我们可以使用反射修改String内char数组，只不过这不属于正规方法。</li>
+<li><strong>在JDK 1.8以后</strong>，String常量池移动到了堆中。如果是直接使用<code>String a=&quot;hello&quot;</code>定义的字符串，是放在常量池中的，如果是用<code>new</code>出来则放在常量池外部的堆中。但是new出来的字符串调用<code>intern()</code>获得的是常量池对应的引用。</li>
+<li><strong>注意</strong>：对应final修饰的String对象，编译器会依据不变的特性猜测，从而更大范围的利用常量池。例如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String str1=<span class="string">"a"</span>;</span><br><span class="line"><span class="keyword">final</span> String str2=<span class="string">"a"</span>;</span><br><span class="line">String str3=str1+<span class="string">"b"</span>;</span><br><span class="line">String str4=str2+<span class="string">"b"</span>;</span><br><span class="line">String str5=<span class="string">"ab"</span>;</span><br><span class="line">str3==str5;<span class="comment">// false</span></span><br><span class="line">str4==str5;<span class="comment">// true</span></span><br><span class="line">String str6=<span class="keyword">new</span> String(str1);</span><br><span class="line">str6==str1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h3><ul>
+<li>Java中类似sprintf的字符串格式化方法：<code>String.format();</code>，用例见：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">String fs;</span><br><span class="line">fs = String.format(<span class="string">"浮点型变量的值为 "</span> +</span><br><span class="line">                   <span class="string">"%f, 整型变量的值为 "</span> +</span><br><span class="line">                   <span class="string">" %d, 字符串变量的值为 "</span> +</span><br><span class="line">                   <span class="string">" %s"</span>, floatVar, intVar, stringVar);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>charAt(int index)</code>返回指定位置字符。</li>
+<li><code>int compareTo(String anotherString)</code>:字符对比。</li>
+<li><code>String substring(int beginIndex, int endIndex)</code>:返回字串（$[begin,end)$）。</li>
+<li>获得对应的charArray:<code>char[] toCharArray()</code>。</li>
+<li>用charArray构造String：<code>String String.valueOf(char[] data, int offset, int count)</code>，注意：这里用起点和长度定义。</li>
+<li><code>String.strip()</code>：去除前后部的空格字符，这里考虑到了Unicode所以空格字符不仅仅是ASCII码中的空格和控制字符。</li>
+<li><code>public String[] split(String regex)</code>:用于切分字符串，返回的是字符串数组。<ul>
+<li>注意：输入的是正则表达式，这意味着’\‘，’.’等正则式保留符号均需要转义才能正确工作。</li>
+<li>同时，用于分割的字符不会出现在结果中，例如 “boo:and:foo” 被“:”分割得到 { “boo”, “and”, “foo” }，被”o”分割得到 { “b”, “”, “:and:f” }。</li>
+</ul>
+</li>
+<li>查找字符出现的第一个位置：<code>int indexOf(String str, int fromIndex)</code>，查找出现的最后一个位置：<code>int lastIndexOf(String str, int fromIndex)</code>。其中fromIndex是查找开始位置。</li>
+</ul>
+<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><h2 id="高精度数字类型"><a href="#高精度数字类型" class="headerlink" title="高精度数字类型"></a>高精度数字类型</h2><h2 id="Bit位相关位"><a href="#Bit位相关位" class="headerlink" title="Bit位相关位"></a>Bit位相关位</h2><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><blockquote>
+<p>可以参考<a href="https://www.runoob.com/java/java-regular-expressions.html" target="_blank" rel="noopener">正则表达式菜鸟教程</a></p>
+</blockquote>
+<ul>
+<li>Java缺少类似C的scanf那样能够处理”%s-&gt;%s”的输入规格化函数。但是Java的正则表达式更加强大，事实上也不是非常难用。</li>
+<li>正则表达式相关类主要位于<em>Java.util.regex</em>包下，最常用的<code>Pattern</code>和<code>Matcher</code>类。</li>
+<li>其中<code>Pattern</code>类主要用于正则式的预处理，<code>Matcher</code>类则用模式匹配输入的字符串。</li>
+</ul>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><ul>
+<li>Pattern一般使用静态方法<code>Pattern.complie(String regex)</code>获得，regex就是正则表达式</li>
+<li>Matcher则使用<code>Pattern.matcher(String input)</code>获得，也可以用<code>Matcher.reset(CharSequence input)</code>重置。</li>
+<li>Matcher的几个查找方法：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">lookingAt</td>
+<td align="left">只从输入字符串头部开始查找，但不是要求匹配整个串</td>
+</tr>
+<tr>
+<td align="center">matches</td>
+<td align="left">匹配整个串</td>
+</tr>
+<tr>
+<td align="center">find</td>
+<td align="left">从头部开始匹配，<strong>找到一个匹配子串就暂停</strong>，可以提取匹配的子串。<strong>暂停后可以继续查找下一部分输入串</strong>，直到查到输入串的末尾。</td>
+</tr>
+<tr>
+<td align="center">find(int start)</td>
+<td align="left">从指定位置开始find查找。</td>
+</tr>
+</tbody></table>
+<p>以上方法均返回boolean表示成不成功。</p>
+<ul>
+<li>可见最复杂也最好用的是<code>find</code>方法。</li>
+</ul>
+<p>举个例子，我们输入”AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;”，我们想提取”AB CD EF GH IJ KL”则有</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pattern pattern=Pattern.compile(<span class="string">"([A-Z]+)-&gt;([A-Z]+);"</span>);</span><br><span class="line">Matcher matcher=pattern.matcher(<span class="string">"AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;"</span>);</span><br><span class="line"><span class="keyword">while</span>(matcher.find()) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=matcher.groupCount();i++) &#123;</span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AB</span></span><br><span class="line"><span class="comment">CD</span></span><br><span class="line"><span class="comment">EF</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>我们想提取”AB-&gt;CD; EF-&gt;GH; IJ-&gt;KL;”则有：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">Pattern pattern=Pattern.compile(<span class="string">"([A-Z]+)-&gt;([A-Z]+);"</span>);</span><br><span class="line">Matcher matcher=pattern.matcher(<span class="string">"AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;"</span>);</span><br><span class="line"><span class="keyword">while</span>(matcher.find()) &#123;</span><br><span class="line">    System.out.println(matcher.group());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AB-&gt;CD;</span></span><br><span class="line"><span class="comment">EF-&gt;GH;</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意正则式中”(XX)”的使用，用于表示子匹配组，<code>group()</code>输出整个正则式的匹配串，<code>group(int i)，i&gt;=1</code>输出该次匹配的第i个子匹配组。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java并发锁</title>
+    <url>/2020/08/07/Java%E5%B9%B6%E5%8F%91%E9%94%81/</url>
+    <content><![CDATA[<h1 id="Java并发锁"><a href="#Java并发锁" class="headerlink" title="Java并发锁"></a>Java并发锁</h1><h2 id="CAS操作"><a href="#CAS操作" class="headerlink" title="CAS操作"></a>CAS操作</h2><a id="more"></a>
+
+<ul>
+<li>CAS是Compare And Set的缩写，它是一种不加锁并发修改变量的方法。</li>
+<li>CAS使结合了两种方法：<code>Unsafe</code>类调用系统原生方法，然后使用CPU原语保证CAS的原子性。在set不成功时自旋（while死循环），直到修改成功（自旋的终止条件要视操作而定）。</li>
+</ul>
+<h3 id="CAS理解"><a href="#CAS理解" class="headerlink" title="CAS理解"></a>CAS理解</h3><ul>
+<li>CAS涉及三个值：内存中目前实际值V、预期的原始数值A、希望把原始值更新成的A值。CAS会比对V、A，若V==A就执行修改，修改成功后返回。</li>
+<li>具体原理：<ol>
+<li>首先如果没有其他线程干扰就不用说了。</li>
+<li>如果有多个线程竞争修改同一值，我们考虑<strong>第一种情况</strong>：除本线程外的其他线程只会把内存值修改为非A的值，这时我们只要比对V、A就知道是否有其他线程先一步修改。当V!=A时就有其他线程修改，此时我们放弃修改，否则我们可以顺利修改并且操作是原子（没有其他线程插入）的。</li>
+<li>我们考虑<strong>第一种情况的漏洞</strong>：ABA问题，就是说我们准备修改时，有线程把原始值A改成了B然后又改成了A。这个时候原值比对成功，但是我们如果修改不再是原子性的了，因为从我们获取原值到比对成功再修改的中间有其他线程修改了。这种误判的避免可以使用<strong>值+时间戳</strong>的方法解决。</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>多线程</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Java面向对象</title>
+    <url>/2020/07/28/Java%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<h1 id="Java面向对象基础"><a href="#Java面向对象基础" class="headerlink" title="Java面向对象基础"></a>Java面向对象基础</h1><h2 id="继承基础知识"><a href="#继承基础知识" class="headerlink" title="继承基础知识"></a>继承基础知识</h2><a id="more"></a>
+
+<ul>
+<li><p>父类、超类、基类都是同一个概念</p>
+</li>
+<li><p>面向对象三大特性中，继承是多态的基础，多态只在具有继承关系的类之间发生</p>
+</li>
+<li><p>区分<strong>重载（Overload）</strong>与<strong>重写（Override）</strong>：</p>
+<ol>
+<li>重载发生在一个类的内部，当一个类内有多个同名方法时，编译器根据方法的参数数量、类型、个数来区分该调用哪个方法。注意：重载不依据返回值区分，即仅有返回值不同不能重载。</li>
+<li>重写发生在继承类之间，子类编写与父类相同的方法，重写的方法名、返回值、参数列表均相同，但是<strong>权限修饰符可以不相同</strong>。由于父类的private方法子类无法访问，显然也无法重写。注意：子类只能缩小重写方法的权限，例如public-&gt;protected，但是不能扩大。</li>
+<li>从名字上看，重写是外壳不变，<strong>内部重写</strong>。而重载是<strong>重新载入方法</strong>，外壳也变了。</li>
+<li>重写是父类、子类间的多态，而重载是类内部的多态。</li>
+</ol>
+</li>
+<li><p>在构造方法上，父类如果有无参构造器子类可以默认调用，但是没有的话就必须用super关键字自行调用有参构造器。</p>
+</li>
+<li><p>在有继承、静态的情况下，子/父类的属性、代码块、构造器的构造顺序：</p>
+<ol>
+<li>当存在静态和非静态部分时，静态部分先于非静态部分初始化。</li>
+<li>当规则 1 无法判断时，父类部分先于子类初始化。</li>
+<li>当规则 1，2均无法判断时，初始化顺序：属性-&gt;代码块-&gt;构造器。</li>
+<li>1，2，3全部相同时，按照定义的顺序执行。</li>
+<li>综合规则 1，2，3，我们有最终顺序</li>
+</ol>
+<blockquote>
+<pre><code>1. 父类的静态成员变量
+2. 父类的静态代码块
+3. 子类的静态成员变量
+4. 子类的静态代码块
+5. 父类的成员变量
+6. 父类的代码块
+7. 父类的构造函数
+8. 子类的成员变量
+9. 子类的代码块
+10. 子类的构造函数</code></pre></blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="补充：代码块知识"><a href="#补充：代码块知识" class="headerlink" title="补充：代码块知识"></a>补充：代码块知识</h3><ul>
+<li>在Java中，使用<code>{}</code>包裹起来语句的我们称为代码块</li>
+<li>代码块放在普通方法中就是<strong>普通代码块</strong>，独立放在类中（与方法、属性并列）且不加<code>static</code>就是<strong>构造代码块</strong>，加上了static修饰的就是<strong>静态代码块</strong>。</li>
+<li>构造代码块每一次构造类都会运行一次，多个平等的构造代码块按定义顺序执行。</li>
+<li>静态代码块在JVM加载类时就运行一次且仅运行这一次。</li>
+</ul>
+<hr>
+<ul>
+<li>所有的类均继承自<code>java.lang.Object</code>。</li>
+<li><code>final</code>修饰类时，类不能被继承，且其中的方法均隐式被final修饰。但是变量没有。<code>final</code>单独修饰的方法不能被重写。</li>
+<li>类似于<code>final</code>，<code>static</code>修饰的方法也不能重写。</li>
+<li><strong>重写</strong>还受到了权限修饰符的限制，子类不能访问的方法无法重写。所以一个包中的子类不能重写父类private方法，而不在一个包中的的子类不能重写父类private、默认权限方法。</li>
+</ul>
+<h2 id="多态基础知识"><a href="#多态基础知识" class="headerlink" title="多态基础知识"></a>多态基础知识</h2><ul>
+<li>多态必要条件：继承、重写、父类引用指向子类对象（向上转型）。</li>
+<li>多态下，父类引用调用被子类重写的方法执行的 仍然是<strong>子类重写后的方法</strong>。</li>
+<li>而如果在多态下还是想调用父类被重写前的方法，需要<code>super</code>显示调用。</li>
+<li>在<strong>C++</strong>中，多态由虚函数实现，但是Java中没被final修饰的方法默认就是虚函数。</li>
+</ul>
+<h2 id="抽象基础知识"><a href="#抽象基础知识" class="headerlink" title="抽象基础知识"></a>抽象基础知识</h2><ul>
+<li><p>Java中抽象类是被<code>abstract</code>修饰的类</p>
+</li>
+<li><p>抽象类除了不能被实例化只能被继承外，其他包括方法、属性等等都可以和普通类一样</p>
+</li>
+<li><p>方法也可以被<code>abstract</code>修饰，此时该方法必须被子类重写。当一个类有了抽象方法，抽象方法导致该类必须被子类继承才能正常工作，同时子类要么实现抽象方法要么声明自己是抽象类。所以有抽象方法的类一定是抽象类。</p>
+</li>
+<li><p>抽象方法没有方法体，形式类似于函数声明，例如</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">double</span> <span class="title">computePay</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意</strong>：构造函数、static方法不能是抽象方法。</p>
+</li>
+</ul>
+<h2 id="封装基础知识"><a href="#封装基础知识" class="headerlink" title="封装基础知识"></a>封装基础知识</h2><ul>
+<li>封装是类对内部实现的隐藏，一般使用<code>private</code>权限实现。</li>
+</ul>
+<h2 id="接口基础知识"><a href="#接口基础知识" class="headerlink" title="接口基础知识"></a>接口基础知识</h2><ul>
+<li>类似普通类，接口的源文件也保存在<code>.java</code>文件中，字节码文件也保存在<code>.class</code>文件中。</li>
+<li>只有<code>static</code>和<code>final</code>变量可以放在接口中。</li>
+<li>默认情况下，不特意指定的话，接口是被<code>abstract</code>隐式修饰的，接口的方法是被<code>public abstract</code>隐性修饰，变量被<code>public static final</code>隐性修饰。不能人为设置与上述修饰符矛盾的修饰符，会报错。</li>
+<li>抽象类可以有静态代码块和静态方法，但是接口不能有。</li>
+<li>但是在JDK 1.8以后接口可以有静态方法以及方法体，使用<code>default</code>标记。</li>
+<li>仅有抽象类可以在实现接口时不实现所有的方法。</li>
+<li>在实现接口的方法时，方法名、参数必须一致，返回值必须兼容。</li>
+<li><strong>注意</strong>：接口可以继承接口，同样使用<code>extends</code>关键字，此外接口可以继承多个接口，例如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Hockey</span> <span class="keyword">extends</span> <span class="title">Sports</span>, <span class="title">Event</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在接口的继承中，我们经常用到没有任何方法的空接口，这种接口可以称为标记接口，例如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> java.util;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EventListener</span></span></span><br><span class="line"><span class="class"></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="枚举类基础知识"><a href="#枚举类基础知识" class="headerlink" title="枚举类基础知识"></a>枚举类基础知识</h2><ul>
+<li>枚举类的关键字：<code>enum</code>，使用与普通数据类型更相似，注意与class定义方式区分：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">enum</span> Color </span><br><span class="line">&#123; </span><br><span class="line">    RED, GREEN, BLUE; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>枚举类是一种特殊的类，例如上述的Color枚举类的每一种枚举对象都是一个Color类对象，且被<code>public static final</code>修饰：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color RED = <span class="keyword">new</span> Color();</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color BLUE = <span class="keyword">new</span> Color();</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Color GREEN = <span class="keyword">new</span> Color();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>枚举类是类，且能有自己的方法、变量、构造函数，<strong>注意</strong>：其构造函数只能是private，这是因为枚举类不允许随意修改枚举数量。</li>
+<li>枚举类有三个常用函数：<ol>
+<li><code>values()</code>：数组形式返回所有枚举值。</li>
+<li><code>ordinal()</code>：int 形式返回本枚举值的索引。</li>
+<li><code>valueOf</code>：依据枚举值名称获得对应枚举值。</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+        <category>基础</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>LeetCode刷题心得-1</title>
+    <url>/2020/08/11/LeetCode%E5%88%B7%E9%A2%98%E5%BF%83%E5%BE%97-1/</url>
+    <content><![CDATA[<p><strong>本文章用于记录LeetCode刷题的心得，包括如何思考、代码如何高效无错实现等</strong></p>
+<a id="more"></a>
+
+<h2 id="24-两两交换链表中的节点"><a href="#24-两两交换链表中的节点" class="headerlink" title="24. 两两交换链表中的节点"></a><a href="https://leetcode-cn.com/problems/swap-nodes-in-pairs/" target="_blank" rel="noopener">24. 两两交换链表中的节点</a></h2><blockquote>
+<p>给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</p>
+<p> 示例:</p>
+<p>给定 1-&gt;2-&gt;3-&gt;4, 你应该返回 2-&gt;1-&gt;4-&gt;3.</p>
+</blockquote>
+<ul>
+<li>本题可以与k反转链表和链表逆序联系起来，相当于节点两两内部逆序</li>
+</ul>
+<h3 id="本题首先可以用递归做"><a href="#本题首先可以用递归做" class="headerlink" title="本题首先可以用递归做"></a>本题首先可以用递归做</h3><ul>
+<li>递归需要使用返回值传回交换后本段（本题是长度为2的逆序串）的头节点</li>
+<li>因为返回的必须是整段的头节点不能是段内其他节点，所以对于一段的处理最好放在一个递归函数内处理，<strong>不要试图每次递归处理一个节点</strong></li>
+</ul>
+<h3 id="本题还可以使用遍历做"><a href="#本题还可以使用遍历做" class="headerlink" title="本题还可以使用遍历做"></a>本题还可以使用遍历做</h3><ul>
+<li>遍历的话首先需要处理交换的两个节点，我们称为$Node_1,Node_2$</li>
+<li>其次考虑到交换时$Node_1$的父亲的next指针也需要修改，所以$Par_1$也需要处理</li>
+<li>在确定了所有需要处理的指针后，再考虑如何初始化（用dummy节点避免讨论）、移动这三个指针。</li>
+<li>考虑到指针的交换非常复杂，对于本题可以画一个长度为2、3的链表进行模拟，其中<strong>原指针用实线，修改的指针用虚线，为每一个新连接选择正确的修改顺序</strong></li>
+<li>此外，链表逆序除了一个个节点逆序，还可以使用<strong>头插法，这实际也是链表实现栈的方法</strong>。只不过这样可能需要另起一个dummy（空头）节点用于保存逆序链表。</li>
+</ul>
+<h2 id="28-实现-strStr"><a href="#28-实现-strStr" class="headerlink" title="28. 实现 strStr()"></a><a href="https://leetcode-cn.com/problems/implement-strstr/" target="_blank" rel="noopener">28. 实现 strStr()</a></h2><blockquote>
+<p>实现 strStr() 函数。</p>
+<p>给定一个 haystack 字符串和一个 needle 字符串，在 haystack 字符串中找出 needle 字符串出现的第一个位置 (从0开始)。如果不存在，则返回  -1。</p>
+</blockquote>
+<ul>
+<li>本题实际上就是要求实现：在一个给定串中寻找模式字串出现的一个位置。</li>
+</ul>
+<h3 id="本题最优秀的做法应该是KMP算法"><a href="#本题最优秀的做法应该是KMP算法" class="headerlink" title="本题最优秀的做法应该是KMP算法"></a>本题最优秀的做法应该是KMP算法</h3><ul>
+<li>KMP算法这里不再详细介绍，它的核心是求相同前后缀最大长度数组，然后转为Next数组。</li>
+<li>注意：使用Next数组时是模式串指针移动而不是被匹配串的指针移动。</li>
+<li>求Next数组的过程也看做模式串内部的匹配比较好理解，可见<a href="https://www.zhihu.com/question/21923021/answer/281346746" target="_blank" rel="noopener">如何更好地理解和掌握 KMP 算法? - 海纳的回答 - 知乎 </a></li>
+<li>不同版本KMP的$Next[0]$似乎取值不同，上述知乎解法统一取-1，是为了标志此处整个模式串完全失配重新开始，遇到此情况统一加一进入$Pattern[0]$准备重新开始对比。</li>
+<li>知乎解法的另一点就是前后缀数组向后移动一位才能得到$Next[]$。</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">KMP</span><span class="params">(<span class="keyword">char</span> * t, <span class="keyword">char</span> * p)</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>; </span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (i &lt; <span class="built_in">strlen</span>(t) &amp;&amp; j &lt; <span class="built_in">strlen</span>(p))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (j == <span class="number">-1</span> || t[i] == p[j]) </span><br><span class="line">		&#123;</span><br><span class="line">				i++;</span><br><span class="line">           		j++;</span><br><span class="line">		&#125;</span><br><span class="line">	 	<span class="keyword">else</span> </span><br><span class="line">           		j = next[j];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (j == <span class="built_in">strlen</span>(p))</span><br><span class="line">       <span class="keyword">return</span> i - j;</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">       <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">getNext</span><span class="params">(<span class="keyword">char</span> * p, <span class="keyword">int</span> * next)</span></span></span><br><span class="line"><span class="function"></span>&#123;<span class="comment">//着重理解：求Next数组是Patter串的内部匹配（使用求出的Next数组）过程</span></span><br><span class="line">	next[<span class="number">0</span>] = <span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = <span class="number">-1</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (i &lt; <span class="built_in">strlen</span>(p))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (j == <span class="number">-1</span> || p[i] == p[j])</span><br><span class="line">		&#123;</span><br><span class="line">			++i;</span><br><span class="line">			++j;</span><br><span class="line">			next[i] = j;</span><br><span class="line">		&#125;	</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			j = next[j];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="本题还可以使用字符串Hash"><a href="#本题还可以使用字符串Hash" class="headerlink" title="本题还可以使用字符串Hash"></a>本题还可以使用字符串Hash</h3><ul>
+<li>字符串hash可以把字符串看作一个$N$进制数，其中$N$就是每一位字符的种类数。但是显然这很容易数值溢出，可以使用求余的方法避免，考虑到快速求余以及取值范围，我们对$2^{31}$求余即可，且本处使用$n&amp;(2^{31}-1)$即可快速计算余数。</li>
+<li>考虑到有取余，所以Hash相同时还需要进一步比对是否真的相等。</li>
+</ul>
+<h2 id="31-下一个排列"><a href="#31-下一个排列" class="headerlink" title="31. 下一个排列"></a><a href="https://leetcode-cn.com/problems/next-permutation/" target="_blank" rel="noopener">31. 下一个排列</a></h2><ul>
+<li><p>本题主要是关于全排列(字典序)的，但是要求从任意一个中间态求下一个排列，所以不能使用常规的递归算法了。</p>
+</li>
+<li><p>本题主要需要注意几点：</p>
+<ol>
+<li>首先记住全排列的一个样例用于回忆推导：</li>
+</ol>
+<blockquote>
+<p>1,2,3,4,5</p>
+<p>1,2,3,5,4</p>
+<p>1,2,4,3,5</p>
+<p>1,2,4,5,3</p>
+<p>1,3,2,4,5</p>
+<p>1,3,2,5,4</p>
+</blockquote>
+<ol start="2">
+<li>然后记住寻找交换的数对分两步：第一步：找到最靠后(从后向前找)的一对相邻的升序数对$n_1&lt;n_2$，$n_1$将被用于交换。第二步：找到最靠后(从后向前找)的一个数$n_3$满足$n_3&gt;n_1$。则$n_1,n_3$交换。</li>
+<li>交换了一次过后，假设原来$n_1$的索引是$i$，则需要让$arr[i-1,arrLen)$也就其后面的数组部分变成升序。这里可以省事直接排序，也可以使用反转的方法。因为只有当$arr[i-1,arrLen)$是降序时我们才需要反转它为升序。</li>
+</ol>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>MySQL学习</title>
+    <url>/2020/07/25/MySQL%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p><strong>本文记录了学习MySQL的笔记，主要涉及MySQL本身特有的操作，SQL通用笔记不在本处记录</strong></p>
+<h2 id="Windows下启动已经安装的MySQL"><a href="#Windows下启动已经安装的MySQL" class="headerlink" title="Windows下启动已经安装的MySQL"></a>Windows下启动已经安装的MySQL</h2><a id="more"></a>
+
+<h3 id="命令行启动、登录MySQL"><a href="#命令行启动、登录MySQL" class="headerlink" title="命令行启动、登录MySQL"></a>命令行启动、登录MySQL</h3><ul>
+<li>找到MySQL安装后对应的服务名称，一般设置为<code>MySQLXX</code></li>
+<li>CMD下输入<code>net start [MySQL服务名]</code>，可能需要管理员启动</li>
+<li>启动成功后进入mysql.exe所在目录，CMD输入<code>mysql -u [用户名] -p</code>，随后输入密码即登录了MySQL命令行。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据库</category>
+        <category>MySQL</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>NexT主题设置</title>
+    <url>/2020/07/24/NexT%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE/</url>
+    <content><![CDATA[<h1 id="Hexo-Next主题优化"><a href="#Hexo-Next主题优化" class="headerlink" title="Hexo+Next主题优化"></a>Hexo+Next主题优化</h1><p>可见<a href="https://zhuanlan.zhihu.com/p/30836436" target="_blank" rel="noopener">知乎文章</a></p>
+<h2 id="Hexo配合Typora时的图片问题"><a href="#Hexo配合Typora时的图片问题" class="headerlink" title="Hexo配合Typora时的图片问题"></a>Hexo配合Typora时的图片问题</h2><p>可见<a href="https://blog.csdn.net/qq_32623363/article/details/100524856" target="_blank" rel="noopener">typora + hexo博客中插入图片</a></p>
+]]></content>
+      <categories>
+        <category>Hexo博客</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>SQL学习心得1</title>
+    <url>/2020/07/25/SQL%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%971/</url>
+    <content><![CDATA[<p><strong>本文章总结了SQL中最常用、最基础的语法。SQL的其他细节知识例如数据类型、操作符等不在此总结</strong></p>
+<h1 id="DDL（Data-Definition-Languages）"><a href="#DDL（Data-Definition-Languages）" class="headerlink" title="DDL（Data Definition Languages）"></a>DDL（Data Definition Languages）</h1><p><strong>主要用于操作数据对象的定义，例如数据库、表、列、索引的定义</strong></p>
+<a id="more"></a>
+
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="使用-切换数据库"><a href="#使用-切换数据库" class="headerlink" title="使用/切换数据库"></a>使用/切换数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">USE</span> dataBaseName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">DATABASE</span> databaseName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看数据库内所有表"><a href="#查看数据库内所有表" class="headerlink" title="查看数据库内所有表"></a>查看数据库内所有表</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SHOW TABLES;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">DATABASE</span> databaseName;</span><br></pre></td></tr></table></figure>
+
+<h2 id="表"><a href="#表" class="headerlink" title="表"></a>表</h2><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><ul>
+<li>其中column_name 是列名，column_type是列类型，constraints是定义列的约束。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> tablename (column_name_1 column_type_1 <span class="keyword">constraints</span>，</span><br><span class="line">column_name_2 column_type_2 <span class="keyword">constraints</span> ，... column_name_n column_type_n</span><br><span class="line"><span class="keyword">constraints</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看表的详细信息"><a href="#查看表的详细信息" class="headerlink" title="查看表的详细信息"></a>查看表的详细信息</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">DESC tableName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> tableName;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改列"><a href="#修改列" class="headerlink" title="修改列"></a>修改列</h3><ul>
+<li>1-4依次是修改、添加、删除表中列、修改列名的命令。</li>
+<li><code>FIRST</code>表示把列置为第一位。<code>AFTER</code>则是指定列的前一列。</li>
+<li>注意MODIFY和CHANGE是互补的，前者使用更方便只需要写一次列名但是不能修改列名，而后者可以修改列名</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">1. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">MODIFY</span> [<span class="keyword">COLUMN</span>] column_definition [<span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> col_name];</span><br><span class="line">2. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">ADD</span> [<span class="keyword">COLUMN</span>] column_definition [<span class="keyword">FIRST</span> | <span class="keyword">AFTER</span> col_name];</span><br><span class="line">3. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">DROP</span> [<span class="keyword">COLUMN</span>] col_name;</span><br><span class="line">4. <span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">CHANGE</span> [<span class="keyword">COLUMN</span>] old_col_name column_definition [<span class="keyword">FIRST</span>|<span class="keyword">AFTER</span> col_name];</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表名"><a href="#修改表名" class="headerlink" title="修改表名"></a>修改表名</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> tablename <span class="keyword">RENAME</span> [<span class="keyword">TO</span>] new_tablename;</span><br></pre></td></tr></table></figure>
+
+<h1 id="DML（Data-Manipulation-Languages）"><a href="#DML（Data-Manipulation-Languages）" class="headerlink" title="DML（Data Manipulation Languages）"></a>DML（Data Manipulation Languages）</h1><p><strong>用于更新、查询、删除等操作具体的数据</strong></p>
+<p>与DDL对应的操作不同。</p>
+<ul>
+<li>DDL的删除：DROP，修改：ALTER，MODIFY，等，增加(插入)：ADD，查询：SHOW。</li>
+<li>而在DML中，删除：DELETE，FROM，修改：UPDATE，SET，增加：INSERT，查询：SELECT，FROM，WHERE。</li>
+</ul>
+<h2 id="插入行"><a href="#插入行" class="headerlink" title="插入行"></a>插入行</h2><ul>
+<li>单行插入记录<ul>
+<li>注意：filed可以不写但是不写就必须让values中的值与表的列一一对应。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tablename (field1,field2,……fieldn) <span class="keyword">VALUES</span>(value1,value2,……valuesn);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>多行一次性插入记录</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> tablename (field1, field2,……fieldn)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">(record1_value1, record1_value2,……record1_valuesn),</span><br><span class="line">(record2_value1, record2_value2,……record2_valuesn),</span><br><span class="line">……</span><br><span class="line">(recordn_value1, recordn_value2,……recordn_valuesn)</span><br><span class="line">;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更新多表的记录"><a href="#更新多表的记录" class="headerlink" title="更新多表的记录"></a>更新多表的记录</h2><ul>
+<li>$t_1,t_2$等是表名，显然我们也可以把本命令改为只改一个表的更新命令，那时无需指定属性列对应的表名了。</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t1,t2…tn <span class="keyword">set</span> t1.field1=expr1,tn.fieldn=exprn [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<h2 id="查询记录"><a href="#查询记录" class="headerlink" title="查询记录"></a>查询记录</h2><p>这是DML最重要、最复杂的内容了，此处仅介绍基础必备语法。</p>
+<ul>
+<li><h3 id="基础SELECT语法"><a href="#基础SELECT语法" class="headerlink" title="基础SELECT语法"></a>基础SELECT语法</h3><ul>
+<li>WHERE条件可以非常复杂。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION]</span><br><span class="line"><span class="keyword">SELECT</span> colName1, colName2,... <span class="keyword">FROM</span> tableName [<span class="keyword">WHERE</span> CONDITION]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="排序SELECT语法"><a href="#排序SELECT语法" class="headerlink" title="排序SELECT语法"></a>排序SELECT语法</h3><ul>
+<li>不指定DESC：降序或者ASC：升序时，默认升序</li>
+<li>可有多个排序关键字。例如依次为A，B，则仅当A处相等时再按B排序。</li>
+<li>每个关键字均可执行升降序</li>
+<li>若有记录使用了所有关键字仍无规定顺序，最后结果是无序的。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tablename [<span class="keyword">WHERE</span> CONDITION] [<span class="keyword">ORDER</span> <span class="keyword">BY</span> field1 [<span class="keyword">DESC</span>|<span class="keyword">ASC</span>] ， field2</span><br><span class="line">[<span class="keyword">DESC</span>|<span class="keyword">ASC</span>]，……fieldn [<span class="keyword">DESC</span>|<span class="keyword">ASC</span>]]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="限制显示数量SELECT语法"><a href="#限制显示数量SELECT语法" class="headerlink" title="限制显示数量SELECT语法"></a>限制显示数量SELECT语法</h3><ul>
+<li>offset_start是显示起点，row_count是显示条数</li>
+<li>limit属于MySQL拓展语法，其他数据库可能无法使用</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ……[<span class="keyword">LIMIT</span> offset_start,<span class="keyword">row_count</span>]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="聚合查询"><a href="#聚合查询" class="headerlink" title="聚合查询"></a>聚合查询</h3><ul>
+<li>聚合指：我们查询中用到的可能是多条记录，但是最后结果却只有一条。</li>
+<li>聚合函数例如SUM，COUNT，MIN，MAX</li>
+<li>having 和where 的区别在于having 是对聚合后的结果进行条件的过滤，例如筛选出COUNT结果符合要求的。而where 是在聚合前就对记录进行过滤，如果逻辑允许，我们尽可能用where 先过滤记录。</li>
+<li>有了GroupBy以后我们的聚类结果是分散的，WITH ROLLUP指最后再全部聚类查询一次，例如查询总人数而不仅是各部门总人数。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> [field1,field2,……fieldn] fun_name</span><br><span class="line"><span class="keyword">FROM</span> tablename</span><br><span class="line">[<span class="keyword">WHERE</span> where_contition]</span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> field1,field2,……fieldn</span><br><span class="line">[<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]]</span><br><span class="line">[<span class="keyword">HAVING</span> where_contition]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="连接查询"><a href="#连接查询" class="headerlink" title="连接查询"></a>连接查询</h3><ul>
+<li>连接查询包括了常提到的内、左、右、全连接查询</li>
+<li>如果我们使用逻辑运算来表示这几种连接查询，假设连接查询$t_1,t_2$那么有：内连接：$t_1\bigcap t_2$，左连接：$t_1\bigcup(t_1\bigcap t_1)$，右连接：$t_2\bigcup(t_1\bigcap t_2)$，全连接：$t_1\bigcup t_2$。</li>
+</ul>
+<p>内连接(示例)：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,deptname <span class="keyword">from</span> emp,dept <span class="keyword">where</span> emp.deptno=dept.deptno;</span><br></pre></td></tr></table></figure>
+
+<p>左连接示例：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> ename,deptname <span class="keyword">from</span> emp <span class="keyword">left</span> <span class="keyword">join</span> dept <span class="keyword">on</span> emp.deptno=dept.deptno;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="子SELECT查询"><a href="#子SELECT查询" class="headerlink" title="子SELECT查询"></a>子SELECT查询</h3><ul>
+<li>也即使用一个SELECT子句的结果作为父级SELECT的输入</li>
+<li>子查询的关键字不仅有<code>in</code>，还有not in、=、!=、exists、not exists等等。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> deptno <span class="keyword">in</span> (<span class="keyword">select</span> deptno <span class="keyword">from</span> dept);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><h3 id="多个SELECT结果组合在一起"><a href="#多个SELECT结果组合在一起" class="headerlink" title="多个SELECT结果组合在一起"></a>多个SELECT结果组合在一起</h3><ul>
+<li>这里的组合不修改行内部的内容，仅仅只是把结果行组合到一个结果中。</li>
+<li>UNION会对结果去重，相当于使用了DISTINCT，但是UNIONALL则不管重复全部组合。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t1</span><br><span class="line"><span class="keyword">UNION</span>|<span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t2</span><br><span class="line">……</span><br><span class="line"><span class="keyword">UNION</span>|<span class="keyword">UNION</span> <span class="keyword">ALL</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> tn;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="DCL（Data-Control-Languages）"><a href="#DCL（Data-Control-Languages）" class="headerlink" title="DCL（Data Control Languages）"></a>DCL（Data Control Languages）</h1><p> <strong>用于设置数据库的各种访问权限、用户、用户组等</strong></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+        <category>MySQL</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>hello hexo</title>
+    <url>/2020/06/18/hello-hexo/</url>
+    <content><![CDATA[<h2 id="测试在hexo上发表一篇文章"><a href="#测试在hexo上发表一篇文章" class="headerlink" title="测试在hexo上发表一篇文章"></a>测试在hexo上发表一篇文章</h2><p>你好，Old 胡</p>
+<a id="more"></a>
+<p>测试自动更新<br>$x_1$<br><img src="https://cdn.jsdelivr.net/gh/AiProgram/imageStore/blog-pic/%E5%A3%81%E7%BA%B81" alt=""></p>
+]]></content>
+      <categories>
+        <category>test</category>
+        <category>testChild</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/08/14/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>牛客网刷题-专业技能-概率论与统计学</title>
+    <url>/2020/08/02/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%88%B7%E9%A2%98-%E4%B8%93%E4%B8%9A%E6%8A%80%E8%83%BD-%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E7%BB%9F%E8%AE%A1%E5%AD%A6/</url>
+    <content><![CDATA[<h1 id="牛客网刷题-专业技能-概率论与统计学"><a href="#牛客网刷题-专业技能-概率论与统计学" class="headerlink" title="牛客网刷题-专业技能-概率论与统计学"></a>牛客网刷题-专业技能-概率论与统计学</h1><h2 id="组合数基础"><a href="#组合数基础" class="headerlink" title="组合数基础"></a>组合数基础</h2><ol>
+<li><p>从$m$个不同数字中取出$n$个数，不考虑取出的$n$个数的次序问题，共有$C^{n}_{m}$种取法。</p>
+</li>
+<li><p>$C^{n}_{m}=\frac{m!}{(m-n)!\times n!}$</p>
+</li>
+<li><p>在第一点的基础上，如果我们考虑$n$个数的顺序，显然可能性更多，共有$A^{n}_{m}$种。</p>
+</li>
+<li><p>$A^{n}_{m}=\frac{m!}{(m-n)!}$</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>牛客网刷题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>牛客网刷题-计算机基础-复杂度</title>
+    <url>/2020/08/01/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%88%B7%E9%A2%98-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E5%A4%8D%E6%9D%82%E5%BA%A6/</url>
+    <content><![CDATA[<h1 id="牛客网刷题-计算机基础-复杂度"><a href="#牛客网刷题-计算机基础-复杂度" class="headerlink" title="牛客网刷题-计算机基础-复杂度"></a>牛客网刷题-计算机基础-复杂度</h1><h2 id="计算表达式在计算机中的表示"><a href="#计算表达式在计算机中的表示" class="headerlink" title="计算表达式在计算机中的表示"></a>计算表达式在计算机中的表示</h2><a id="more"></a>
+
+<ul>
+<li>分为前缀表达式、中缀、后缀表达式，其中前缀又称为波兰序表达式，后缀则是逆波兰序</li>
+<li>笔试时构造表达式二叉树，前序遍历就是前缀，后续遍历就是后缀表达式。</li>
+<li>前缀和后缀表达式均不含括号，由运算符优先级自行处理。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>牛客网刷题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>牛客网刷题-计算机基础-排序</title>
+    <url>/2020/08/01/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%88%B7%E9%A2%98-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h1 id="牛客网刷题-计算机基础-排序"><a href="#牛客网刷题-计算机基础-排序" class="headerlink" title="牛客网刷题-计算机基础-排序"></a>牛客网刷题-计算机基础-排序</h1><h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><a id="more"></a>
+
+<ul>
+<li>堆排序中，向下调整可以看作元素向子树寻找插入位置的一个过程，因为子树的父亲、儿子间本来有序。所以可以参考插入排序优化方法，避免反复Swap操作。</li>
+<li>建堆也可以用向下调整解决，初始元素索引取$n/2$即可。</li>
+</ul>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><ul>
+<li>一般来说，对于插入排序，有序区域位于数组前段，紧挨着下个待插入元素</li>
+<li>所以插入+向后移动这两个操作可以合并，此时从有序区域尾部向前扫描即可！</li>
+</ul>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><ul>
+<li>把记录按<strong>步长 gap</strong> 分组，对每组记录采用<strong>直接插入排序</strong>方法进行排序。</li>
+<li>最快及最慢复杂度分别为$O(nlog_2n),n^{1.5}$</li>
+<li>简单使用中，步长每次缩小两倍即可。</li>
+</ul>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><ul>
+<li>快速排序一般指定左侧首元素作为基准</li>
+<li>选定后保存基准副本，基准位置作为空位，从右侧寻找逆序数移动至基准(左侧空位)，再从左侧寻找逆序数移动至右侧空位。</li>
+<li>以上为一轮，轮次进行到左右指针相同为止。</li>
+<li>参考代码可见<a href="https://juejin.im/post/6844903824910450702" target="_blank" rel="noopener">面试时写不出排序算法？看这篇就够了。</a></li>
+</ul>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><ul>
+<li>冒泡排序分轮次排序，每次获第K个最值</li>
+<li>当一轮中没有交换时提前停止，所以对排好序的数组最快$O(n)$。</li>
+</ul>
+<h2 id="特殊知识点"><a href="#特殊知识点" class="headerlink" title="特殊知识点"></a>特殊知识点</h2><ul>
+<li>与<strong>初始序列无关</strong>的排序算法：<strong>堆选归基</strong></li>
+<li><strong>不稳定</strong>排序算法：<strong>堆选快希</strong><ul>
+<li>冒泡排序如果对相同的元素也调换则不稳定，否则稳定。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>牛客网刷题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>牛客网刷题-计算机基础-查找</title>
+    <url>/2020/08/01/%E7%89%9B%E5%AE%A2%E7%BD%91%E5%88%B7%E9%A2%98-%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80-%E6%9F%A5%E6%89%BE/</url>
+    <content><![CDATA[<h1 id="牛客网刷题-计算机基础-查找"><a href="#牛客网刷题-计算机基础-查找" class="headerlink" title="牛客网刷题-计算机基础-查找"></a>牛客网刷题-计算机基础-查找</h1><h2 id="DFS判断是否有环"><a href="#DFS判断是否有环" class="headerlink" title="DFS判断是否有环"></a>DFS判断是否有环</h2><a id="more"></a>
+
+<ul>
+<li>简单方法：记录访问的点数是否超过$n$即可，可以及时退出查找。</li>
+</ul>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><ul>
+<li>笔试中，默认二分查找的中位值索引取$(l+r)/2$，且中位值判断过后不在放入查找区间。</li>
+<li>二分查找的过程可以组成一棵排序二叉树，对于计算总/平均查找次数很有用。</li>
+<li>单个元素查找失败最大次数$\lfloor\log_2n\rfloor+1$。</li>
+<li>平均查找次数：$\approx\log_2(n+1)-1$（对于长度超过50的才能这么近似计算）,否则还是建议画树计算。</li>
+</ul>
+<h2 id="分块查找"><a href="#分块查找" class="headerlink" title="分块查找"></a>分块查找</h2><ul>
+<li>分块查找中块间有序，块内可以无序</li>
+<li>所以最快是块间二分，块内顺序查找。</li>
+</ul>
+<h2 id="逻辑上的不同表"><a href="#逻辑上的不同表" class="headerlink" title="逻辑上的不同表"></a>逻辑上的不同表</h2><ul>
+<li>注意区分线性表、顺序表、数组、链表。</li>
+<li>线性表指表中元素有线性关系，但是元素的物理关系却不一定是线性的，所以线性表包括顺序表、链表。</li>
+<li>计算机中的顺序表我们又常称为数组。</li>
+</ul>
+<h2 id="KMP算法中Next求法"><a href="#KMP算法中Next求法" class="headerlink" title="KMP算法中Next求法"></a>KMP算法中Next求法</h2><ul>
+<li><p>这里主要介绍手算怎么求。</p>
+<ul>
+<li>首先判断是Next数组第几位，Next[0]=0是固定的初始条件。</li>
+<li>对于Next[&gt;0]，我们寻找字串中相同的前缀、后缀的最大长度，把最大长度全部+1处理。<strong>注意</strong>：不存在相同的前后缀时，认为其最大长度为0。</li>
+</ul>
+<blockquote>
+<p>例如 xyxyyxxyx 的Next数组是 0,1,1,2,3,1,2,2,3。</p>
+</blockquote>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>牛客网刷题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>算法编程心得-1</title>
+    <url>/2020/07/24/%E7%AE%97%E6%B3%95%E7%BC%96%E7%A8%8B%E5%BF%83%E5%BE%97-1/</url>
+    <content><![CDATA[<p><strong>本文章主要是我准备面试学习算法编程题时的收获与总结，涉及面试编程以外的算法不在此介绍</strong></p>
+<a id="more"></a>
+
+<h2 id="单调队列与单调栈"><a href="#单调队列与单调栈" class="headerlink" title="单调队列与单调栈"></a>单调队列与单调栈</h2><ul>
+<li>参考的文献(更详细的说明)，可见文章<a href="https://blog.csdn.net/u011815404/article/details/86896303" target="_blank" rel="noopener">线性结构 —— 单调栈与单调队列</a></li>
+<li>单调队列和单调栈的最大特点：无论何时，队列、栈中的元素总是有序的。本处我们均假设是升序的：即从栈顶到栈底是升序的，从队尾到队首是升序的。</li>
+<li>如何实现的呢？<ul>
+<li>对于单调栈：每一次添加元素A，在A入栈前，把栈顶所有小于A的元素出栈，然后再将A入栈。</li>
+<li>对于单调队列：每一次入队元素A，在A入队前，把队尾所有小于A的元素出队，然后再将A入队。</li>
+</ul>
+</li>
+<li>注意：在单调队列的操作中，我们用到了队尾元素出队，这在单端队列中显然无法实现，所以我们需要双端队列Deque来实现单调队列。</li>
+<li>它们的用处：<ul>
+<li>假设我们把一个数组从左至右不断压入单调栈，从元素A入栈上看：我们找到了A左侧第一个不小于A的元素B，从元素A出栈时看：我们找到了A右侧第一个大于A的元素C。显然，区间 $(pos(B),pos(C))$ 上，A都是最大值。</li>
+<li>对于单调队列，如果我们把它与一个普通的队列组合起来，元素对应相同操作。则我们能获得普通队列中任意时刻的最大值：当前单调队列中的队首值。</li>
+<li>单调队列可以很轻松的维护队列的最大值，又因为队列本质看作一个区间，所以在滑动窗口最大值中也有应用。滑动窗口最大值问题：给出窗口长度$n$，给出一段数组，使用窗口划过该数组，并求滑动时的窗口任意时刻最大值。这里我们把窗口前进端看作队尾，前进端的后方视作队首，就可以使用单调队列优化了。</li>
+</ul>
+</li>
+</ul>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><ul>
+<li>二分查找是一个很常见，但是变种问题的细节却非常多的问题</li>
+<li>要实现二分查找，需要注意三个部分：<ol>
+<li>while循环的条件</li>
+<li>mid的计算方法</li>
+<li>根据对比修改left、right边界</li>
+<li>返回的值以及是否需要做扫尾判断</li>
+</ol>
+</li>
+<li>这里的思考主要参考自<a href="https://segmentfault.com/a/1190000016825704" target="_blank" rel="noopener">二分查找、二分边界查找算法的模板代码总结</a></li>
+</ul>
+<h3 id="mid计算"><a href="#mid计算" class="headerlink" title="mid计算"></a>mid计算</h3><ul>
+<li>mid计算一般取$(left+right)&gt;&gt;1$。</li>
+<li>考虑到$left+right$可能溢出，所以建议采用$left+(right-left)&gt;&gt;1$。</li>
+</ul>
+<h3 id="如何修改left、right边界"><a href="#如何修改left、right边界" class="headerlink" title="如何修改left、right边界"></a>如何修改left、right边界</h3><p>这里我们结合特例，形象的记忆方法最好，假设有一个非降序排列（可以有重复元素）的数组arr：</p>
+<table>
+<thead>
+<tr>
+<th align="center">index</th>
+<th align="left">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">num</td>
+<td align="left">0</td>
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">11</td>
+</tr>
+</tbody></table>
+<ul>
+<li>第一种基础问题：key为4，我们只需要找到任意一个key就返回<ol>
+<li>若arr[mid]==5&gt;key，则我们可取right=mid-1，因为arr[mid]!=4可以丢弃。</li>
+<li>若arr[mid]=2&lt;key，则可以取left=mid+1，因为arr[mid]!=4可以丢弃。</li>
+<li>若arr[mid]==4，此时mid=2，3，返回即可。</li>
+</ol>
+</li>
+<li>第二种变形问题：key为4，我们要找到最右侧的4（index=3），也即4的边界。<ol>
+<li>mid=4时同</li>
+</ol>
+</li>
+</ul>
+<h2 id="Tarjan算法求强连通分量"><a href="#Tarjan算法求强连通分量" class="headerlink" title="Tarjan算法求强连通分量"></a>Tarjan算法求强连通分量</h2><ul>
+<li>明确：tarjan算法用于求图的最大强连通分量，在一个强连通分量中任意两点都是可达的，最大强连通分量无法加入更多的点继续构成强连通分量。</li>
+<li>tarjan算法仅用于有向图，无向图的强连通分量显然使用DFS、BFS就能求出来。</li>
+</ul>
+<h3 id="算法细节"><a href="#算法细节" class="headerlink" title="算法细节"></a>算法细节</h3><ul>
+<li>强连通分量中的顶点至少处在一个环中，且至少有一个大环包含所有顶点，不然就有点对不是互相可达的。</li>
+<li>如果能找到这个最大环，那么强连通分量就找到了。为了找环，tarjan算法引入了DFS。</li>
+</ul>
+<ol>
+<li><p>首先考虑两个值，<strong>DFN[]</strong>定义为DFS中顶点的时间戳，所以DFN[]在DFS的新访问点中递增且所有点的DFN不相同。<strong>Low[]</strong>定义为该点所能到达的顶点的最小DFN。</p>
+</li>
+<li><p>对于无环的顶点显然Low[i]=DFN[i]也即它只能到自己为止，但是如果是位于环上的顶点，则它们能返回DFS路径中DFN更小的点，且环上所有点的Low[]都应是环上DFN[]的最小值。</p>
+</li>
+<li><p><strong>Low[]</strong>如何求呢？一个顶点能到达的最小DFN是由它的DFS路径上的子孙们决定的，所以Low[]应在DFS准备回溯时才能更新为最终值（更新为自己和子孙中DFN最小值）。</p>
+</li>
+<li><p>有了DFN和Low如何发现最大强连通量？对于强联通分量上的某个点$i$，我们必有$Low[i]\leq DFN[i]$，同时只有当一个点$j$是联通分量上的最小DFN时才有$Low[j]= DFN[j]$，所以我们可以用$Low[i]=DFN[j]$定位强连通分量上的所有点$i$。</p>
+</li>
+<li><p>如何保证上述方法找到的点属于一个<strong>最大</strong>强连通分量呢？这是因为小一点的强连通分量上的$Low[]$会被更大强连通分量上的子孙的Low值替换。这一点我们考虑一个简单的范例就能模拟出来：</p>
+<blockquote>
+<p>考虑图：$1\rightarrow 2\rightarrow 3\rightarrow 4$，$3\rightarrow 2$，$4\rightarrow 1$</p>
+</blockquote>
+<p>可以看到有一个小强联通分量$2,3$，最大强连通分量$1,2,3,4$，显然$Low[3]=\min(Low[3],Low[4])=1$，所以大联通分量覆盖了小的。</p>
+</li>
+<li><p>我们如何方便的依次输出一个强连通分量？靠DFN再一个个查找效率很低，所以我们使用栈缓存DFS的元素，在发现$Low[j]=DFN[j]$时弹出所有元素就属于同一个最大强连通分量。</p>
+</li>
+<li><p>最后，一个图可能包含多个极大强连通分量，所以我们需要在DFS外围再用循环遍历所有点来找到所有的极大联通分量。</p>
+</li>
+</ol>
+<h3 id="思维发散"><a href="#思维发散" class="headerlink" title="思维发散"></a>思维发散</h3><ul>
+<li>我们可以发现tarjan算法中用一个最小DFN的根来定位同一个最大强连通分量中的所有点，这个思想与并查集非常相像，事实上两个算法的发明者是一个人。</li>
+</ul>
+<h3 id="Tarjan范例代码"><a href="#Tarjan范例代码" class="headerlink" title="Tarjan范例代码"></a>Tarjan范例代码</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    dfn[x] = low[x] = ++tot; <span class="comment">//都初始化为++tot时间戳</span></span><br><span class="line">    stack_[++top] = x; <span class="comment">//点x入栈</span></span><br><span class="line">    exist[x] = <span class="number">1</span>; <span class="comment">//表示点x在栈中</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[x]; i; i = cow[i].nxt) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!dfn[cow[i].to]) &#123;</span><br><span class="line">            <span class="comment">//如果与它相连的这个点还没有被遍历</span></span><br><span class="line">            dfs(cow[i].to);</span><br><span class="line">            low[x] = min(low[x], low[cow[i].to]);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (exist[cow[i].to]) &#123;</span><br><span class="line">            <span class="comment">//如果与它相连的这个点在栈中, 表示它们在同一个连通分量中</span></span><br><span class="line">            low[x] = min(low[x], low[cow[i].to]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="comment">//end for</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (low[x] == dfn[x]) &#123;<span class="comment">//输出一个强连通分量</span></span><br><span class="line">        <span class="comment">//如果节点x是强连通分量的根</span></span><br><span class="line">        id++; <span class="comment">//每个连通分量的标号</span></span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            color[stack_[top]] = id;</span><br><span class="line">            num[id]++;</span><br><span class="line">            exist[stack_[top]] = <span class="number">0</span>;</span><br><span class="line">        &#125; <span class="keyword">while</span> (x != stack_[top--]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!dfn[i]) &#123;</span><br><span class="line">        dfs(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码参考自：<a href="https://juejin.im/post/6844904056821923848" target="_blank" rel="noopener">链接</a></p>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>面试编程题</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>算法编程细节-1</title>
+    <url>/2020/07/24/%E7%AE%97%E6%B3%95%E7%BC%96%E7%A8%8B%E7%BB%86%E8%8A%82-1/</url>
+    <content><![CDATA[<p><strong>本文章主要是我在算法实际编程时的收获与总结，由于是针对编程技巧，所以其他方面也有参考意义</strong></p>
+<a id="more"></a>
+
+<h2 id="数值溢出以及只能储存一定范围数值条件下的溢出"><a href="#数值溢出以及只能储存一定范围数值条件下的溢出" class="headerlink" title="数值溢出以及只能储存一定范围数值条件下的溢出"></a>数值溢出以及只能储存一定范围数值条件下的溢出</h2><ul>
+<li>首先最直接的方法是判断各种边界问题，也即判断运算各数、结果是否可能超过$[MIN,MAX]$，然后提前处理。</li>
+<li>对于输入直接可能可能超过范围是最好处理的，如果是计算过程中可能超过则需要在计算前判断。例如对于：$b=a*10+c$，那么我们为了让b不溢出，需要提前判断$a$与$MIN/10,MAX/10$的大小关系，在此基础上再对$c$判断。</li>
+<li>若考虑直接取负数可能让$-MIN&gt;MAX$（二进制数范围决定），则除了边界讨论也可以把正数统一成负数计算。</li>
+<li>当然如果题目对于储存位数没有做限制则转为更大范围类型是最保险方便的。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>杂项</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>计算机网络复习1</title>
+    <url>/2020/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%A4%8D%E4%B9%A01/</url>
+    <content><![CDATA[<h1 id="OSI，TCP-IP协议栈"><a href="#OSI，TCP-IP协议栈" class="headerlink" title="OSI，TCP/IP协议栈"></a>OSI，TCP/IP协议栈</h1><h2 id="OSI，TCP-IP分层"><a href="#OSI，TCP-IP分层" class="headerlink" title="OSI，TCP/IP分层"></a>OSI，TCP/IP分层</h2><a id="more"></a>
+
+<ul>
+<li>OSI分七层，自底向上：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</li>
+<li>TCP/IP分四层：网络接口层（物理、链路合并）、网络层、传输层、应用层（会话、表示、应用合并）。</li>
+<li>学习中使用中和两者的五层结构：物理、链路、网络、传输、应用层（会话、表示、应用层合并）。</li>
+<li>不同层次设备名称：<ul>
+<li>物理：转发器</li>
+<li>链路：网桥</li>
+<li>网络：路由器</li>
+<li>网络以上：网关。但是路由器也常被称为网关。</li>
+</ul>
+</li>
+</ul>
+<h2 id="五层分层的作用及其协议栈"><a href="#五层分层的作用及其协议栈" class="headerlink" title="五层分层的作用及其协议栈"></a>五层分层的作用及其协议栈</h2><h3 id="物理层（Physical-Layer）"><a href="#物理层（Physical-Layer）" class="headerlink" title="物理层（Physical Layer）"></a>物理层（Physical Layer）</h3><ul>
+<li>物理层主要规定媒体传输接口的机械、电气、功能、过程特性</li>
+<li>物理层不考虑传输的是怎样的比特流，而是考虑比特流怎样传输，所以物理层没有所谓的网络协议栈。</li>
+</ul>
+<h3 id="数据链路层（Data-Link-Layer）"><a href="#数据链路层（Data-Link-Layer）" class="headerlink" title="数据链路层（Data Link Layer）"></a>数据链路层（Data Link Layer）</h3><h4 id="链路层作用"><a href="#链路层作用" class="headerlink" title="链路层作用"></a>链路层作用</h4><ul>
+<li>在网络上，不同的两个主机之间有可能通过多个中间主机连接。但是也有可能直接通过一段链路连接，且该链路上不存在中间主机。数据链路就是负责后一种最简单链路。</li>
+</ul>
+<h4 id="链路层组成"><a href="#链路层组成" class="headerlink" title="链路层组成"></a>链路层组成</h4><ul>
+<li>链路指的是物理链路，只有加上其上承载的通信协议才成为完整的数据链路。</li>
+<li>现在的网络适配器一般包含了物理、数据链路两层的功能。</li>
+<li>数据链路对应数据单元—<code>帧</code></li>
+<li>注意：<ol>
+<li>到数据链路为止，我们熟悉的<strong>TCP/IP</strong>协议都还<strong>没有出现</strong></li>
+<li>正因为TCP/IP都还在上面的网络层，所以更高级的协议更是<strong>没有出现</strong></li>
+</ol>
+</li>
+<li>计算机网络协议采用<strong>类似套娃</strong>的形式，这点和Java 的IO结构很像。除了链路层外，其他层<strong>均适用以下概括</strong>。<ol>
+<li>高层协议把自己的数据（包）传递到下一层，低层可能会在数据外加上一层封装，也有可能把高层数据分割成多份后在每一份外加上一层封装。低层协议所加的封装保存的就是协议所需的信息，例如数据长度、协议标志、数据源、接收者等等。</li>
+<li>这样数据依次向下传递直到物理层发送，协议就形成了一个高层协议在栈底的栈。而接收时协议栈出栈，每出栈一层协议，该层协议都会处理自己的封装，还原成高层协议需要的数据。</li>
+<li>如此一来，各层协议各司其职，都只需要处理自己负责的数据传输即可。</li>
+</ol>
+</li>
+</ul>
+<h4 id="链路层协议"><a href="#链路层协议" class="headerlink" title="链路层协议"></a>链路层协议</h4><ul>
+<li>链路层协议有多种，但是它们全部需要解决三大问题：<strong>封装成帧、透明传输、差错检测</strong></li>
+</ul>
+<h5 id="封装成帧"><a href="#封装成帧" class="headerlink" title="封装成帧"></a>封装成帧</h5><ul>
+<li>链路层对网络层（IP协议）传下来的数据使用封装：帧首部–数据段–帧尾部</li>
+<li>数据端的最大长度由MTU规定</li>
+<li>链路协议采用帧定界符来分割数据段的边界。帧前部使用SOH控制字符，帧尾部使用EOT控制字符，这两个字符都是ASCII码中不可打印的字符。当然ASCII码对应着二进制表达，它们就是两种特殊的二进制码。</li>
+</ul>
+<h5 id="透明传输"><a href="#透明传输" class="headerlink" title="透明传输"></a>透明传输</h5><ul>
+<li>封装成帧中的帧界定符显然有可能与数据段中的数据重合，此时如果不加以区分，那么数据段部分就有可能被错误的定位。</li>
+</ul>
+<h3 id="网络层（Network-Layer）"><a href="#网络层（Network-Layer）" class="headerlink" title="网络层（Network Layer）"></a>网络层（Network Layer）</h3><h4 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h4><ul>
+<li>网络层主要有IP协议、ARP（Address Resolution Protocol）、ICMP（Internet Contorl Message Protocol）、IGMP（Internet Group Management Protocol），但是<strong>这几个协议不是完全独立、并列</strong>的。IP需要用到ARP，ICMP、IGMP则需要用到IP协议。</li>
+</ul>
+<h4 id="IP地址分配"><a href="#IP地址分配" class="headerlink" title="IP地址分配"></a>IP地址分配</h4><ul>
+<li>IP地址（不含端口号）实际由两部分组成：网络段+主机号。正是因为有了两部分所以用子网掩码来分开。</li>
+<li>ABCD四类地址[待补充]</li>
+</ul>
+<h3 id="传输层（Transport-Layer）"><a href="#传输层（Transport-Layer）" class="headerlink" title="传输层（Transport Layer）"></a>传输层（Transport Layer）</h3><h4 id="传输层作用"><a href="#传输层作用" class="headerlink" title="传输层作用"></a>传输层作用</h4><ul>
+<li>为两台<strong>主机间的进程</strong>通信提供服务。<ul>
+<li>显然，网络的协议至下而上，服务的对象范围越来越小，网络层时服务的对象还可以是两台主机到了这里就是主机里的进程了。</li>
+</ul>
+</li>
+<li>到了传输层，通信对象由主机缩小为主机进程，主机是一个独立的个体但是进程在一个主机上有很多个。所以传输层出现了<strong>复用</strong>、<strong>分用</strong>分别对应发送和接收过程。<ul>
+<li>在复用、分用中多个进程使用同一个传输层协议，通过首部信息去区分。</li>
+</ul>
+</li>
+</ul>
+<h4 id="UDP（User-Datagram-Protocol）协议"><a href="#UDP（User-Datagram-Protocol）协议" class="headerlink" title="UDP（User Datagram Protocol）协议"></a>UDP（User Datagram Protocol）协议</h4><ul>
+<li>除了传输层协议基础的复用、分用功能，UDP只增加了差错检测功能。<ul>
+<li>不要以为数据链路层有了差错检测，传输层的差错检测就是多余的了。因为差错不止出现在链路层管辖的一段链路上，下层IP协议的处理、路由器的处理、电路出错都有可能导致数据在链路层正确而传输层出错。可以参考：<a href="https://www.zhihu.com/question/294657294" target="_blank" rel="noopener">在计算机网络中数据链路层和传输层都有流量控制和差错控制他们有什么区别？知乎</a></li>
+</ul>
+</li>
+<li>因为UDP的功能极少，TCP的大部分功能UDP都没有。</li>
+</ul>
+<h5 id="UDP特点"><a href="#UDP特点" class="headerlink" title="UDP特点"></a>UDP特点</h5><ol>
+<li><h4 id="TCP（Transmission-Control-Protocol）"><a href="#TCP（Transmission-Control-Protocol）" class="headerlink" title="TCP（Transmission Control Protocol）"></a>TCP（Transmission Control Protocol）</h4></li>
+</ol>
+<h5 id="TCP特点"><a href="#TCP特点" class="headerlink" title="TCP特点"></a>TCP特点</h5><ol>
+<li><p>TCP之所以不同于UDP，会主动拆包或者转包（把数据切分或者组合），也可以看作TCP的流量控制功能的一个效果或者说要求，因为流量控制要求TCP协议自行控制每次传输数据流的长度而不是应用直接管理。</p>
+<ul>
+<li>正是因为有了拆包和装包，才会由TCP沾包的问题。[待补充完整]</li>
+</ul>
+</li>
+<li><p>TCP报文中，<strong>ACK，ack，seq</strong>这三者是完全不同的。<strong>ACK</strong>和<strong>SYN</strong>，<strong>FIN</strong>类似是只能设置成0或者1的控制位，其中它们分别表示确认(同意)，同步（请求建立连接），结束（请求断开连接）。而<strong>seq, ack</strong>则分别是序号、确认号，一般用于停止等待协议、自动重传（AQS）、流量控制（滑动窗口）等功能中。注意：<strong>seq，ack</strong>同样会参与到TCP的连接建立、断开中，这里特别需要和<strong>ACK</strong>区分。此外：仅有ACK=1时ack字段才有意义。</p>
+</li>
+<li><p>TCP中的<strong>ack</strong>报文确认的是对方发送的报文数据序号，而<strong>seq</strong>是自己发送的报文数据序号。由于TCP是全双工通讯，双方都可以发送，所以同一方发送的<strong>ack,seq</strong>两个序号可以完全不相关。有一个例外就是即使没有发送数据，但是如果<strong>SYN=1/FIN=1</strong>（即属于连接管理的报文），那么也需要消耗一个序号<strong>seq</strong>，这里其实是为了让对方回复的<strong>ACK=1</strong>确认报文对应“唯一”的一个SYN/FIN报文。</p>
+</li>
+<li><p>TCP中的流量控制和拥塞控制作用是完全不同的：流量控制主要考虑到接收方的缓存区大小有限，需要控制发送方的发送速度以避免来不及处理。而拥塞控制考虑的是双方间网络质量对传输速度的限制，需要调整速度达到最大传输效率。</p>
+</li>
+<li><p>TCP的慢启动、拥塞避免（与拥塞控制区分）、快恢复、快重传<strong>均属于拥塞控制</strong>。注意：慢启动的慢特指启动的初始值小，不是增长速度。</p>
+<ol>
+<li>慢启动主要由拥塞窗口(cwnd，注意与流量控制的rwnd区分)控制，cwnd在慢启动初期每成功一个传输轮次就增大一倍，直到碰到预设的慢启动门限（阈值，ssthresh）。超过了慢启动门限就转入拥塞避免算法控制的范畴了。</li>
+<li>由于慢启动门限是慢启动与拥塞避免的交界处，显然它越接近于实际的值越好，所以传输中动态调整的除了拥塞窗口外就是慢启动门限了，后者取上一次cwnd/2.</li>
+</ol>
+</li>
+<li><p><strong>简洁总结TCP建立连接为什么是三次而不是两次握手，TCP断开连接为什么是四次（主动方为何要等待被动方）</strong></p>
+<ul>
+<li>建立连接的第三次握手是为了让双方都得知自己和对方的发送、接收情况。如果只有两次握手，则有可能客户端发现未成功连接而服务端没能发现连接不成功，此时无效链接消耗大量服务其资源。</li>
+<li>TCP的四次握手相比三次握手，主要是被动方的ACK报文和FIN报文不相同，三次握手中被动方的SYN和ACK报文是合二为一的。这是因为主动方能确认自己不再发送数据，但是被动方可能由于原因无法马上停止发送数据，所以被动方的ACK和FIN报文一前一后是有等待间隔的。</li>
+</ul>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>计算机网络</category>
+      </categories>
+  </entry>
+</search>

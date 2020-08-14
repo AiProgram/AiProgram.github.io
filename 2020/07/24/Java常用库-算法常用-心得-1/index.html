@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"./public/search.xml"};
+  </script>
+
+  <meta name="description" content="Java常用库(算法常用)-心得1本文章主要总结最基本的Java库的使用，且在算法编程中经常用到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java常用库(算法常用)心得-1">
+<meta property="og:url" content="http://yoursite.com/2020/07/24/Java%E5%B8%B8%E7%94%A8%E5%BA%93-%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8-%E5%BF%83%E5%BE%97-1/index.html">
+<meta property="og:site_name" content="糊涂虫的博客">
+<meta property="og:description" content="Java常用库(算法常用)-心得1本文章主要总结最基本的Java库的使用，且在算法编程中经常用到">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-24T09:23:26.000Z">
+<meta property="article:modified_time" content="2020-08-14T03:03:46.900Z">
+<meta property="article:author" content="糊涂虫">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/24/Java%E5%B8%B8%E7%94%A8%E5%BA%93-%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8-%E5%BF%83%E5%BE%97-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java常用库(算法常用)心得-1 | 糊涂虫的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">糊涂虫的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/Java%E5%B8%B8%E7%94%A8%E5%BA%93-%E7%AE%97%E6%B3%95%E5%B8%B8%E7%94%A8-%E5%BF%83%E5%BE%97-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="糊涂虫">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="糊涂虫的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java常用库(算法常用)心得-1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-24 09:23:26" itemprop="dateCreated datePublished" datetime="2020-07-24T09:23:26Z">2020-07-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 03:03:46" itemprop="dateModified" datetime="2020-08-14T03:03:46Z">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Java常用库-算法常用-心得1"><a href="#Java常用库-算法常用-心得1" class="headerlink" title="Java常用库(算法常用)-心得1"></a>Java常用库(算法常用)-心得1</h1><p><strong>本文章主要总结最基本的Java库的使用，且在算法编程中经常用到</strong></p>
+<a id="more"></a>
+
+<h2 id="Collection、Map接口关系"><a href="#Collection、Map接口关系" class="headerlink" title="Collection、Map接口关系"></a>Collection、Map接口关系</h2><ul>
+<li>我们常说的Collection、Map的各种类实际上是实现了Collection、Map接口的各种实现类。</li>
+<li>Collection和Map接口都位于 <em>java.util</em> 下，它们之间不是实现的关系。</li>
+<li>它们的实现类也常常位于 <em>java.util</em> 下，注意<strong>不是位于</strong> <em>java.util.Collection/Map</em> 下！<ul>
+<li>由于多线程编程的特殊性，它们的实现类经常在 <em>java.util.concurrent</em> 下有着并发的实现类，形如<code>xxBlockingXX</code>、<code>xxConcurrentXX</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Java中的队列"><a href="#Java中的队列" class="headerlink" title="Java中的队列"></a>Java中的队列</h2><ul>
+<li>Java中的队列最容易想到<em>java.util.Queue</em>，但是实际上这只是标准的Queue接口，是<strong>不能直接使用</strong>的。我们需要寻找的是实现了这个接口的类。同理的还有双端队列<em>java.util.Deque</em>接口，我们也只能用它的实现类，注意：<code>Deque</code>接口实现了<code>Queue</code>接口，所以<code>Deque</code>实现类全都可以当成<code>Queue</code>使用。</li>
+<li><code>Deque</code>作为单端队列使用时，常用方法有进队列(进队尾)：<code>offer(E)</code>、出队列(取队首并删除)：<code>poll()</code>、取队首<code>peekFirst()</code>对应取队尾<code>peekLast()</code>。而作为双端队列使用时，以上的方法均转为<code>XXFirst()</code>、<code>XXLast()</code>方法。</li>
+<li><code>Deque</code>还可以作为Stack使用，这时方法有入栈：<code>push(E)</code>，出栈<code>pop()</code>，取栈顶<code>peek()</code>。</li>
+</ul>
+<ol>
+<li>实现了<code>Deque</code>接口的类，在 <em>java.util</em> 下的有<strong>ArrayDeque</strong>和<strong>LinkedList</strong>。</li>
+<li>还有一个很重要的：优先队列，位于 <em>java.util</em> 包下，名为<code>PriorityQueue</code>，它实现了<code>Queue</code>接口。它的顺序按照排序指定，默认情况下取出元素是升序，我们可以利用 Comparator 接口或者 Comparable接口指定排序。<ol>
+<li>注意：PriorityQueue使用Iterator遍历是不保证顺序的，可以使用<code>toArray()</code>方法转换为数组再排序遍历。</li>
+</ol>
+</li>
+</ol>
+<h2 id="Java中的链表"><a href="#Java中的链表" class="headerlink" title="Java中的链表"></a>Java中的链表</h2><h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><ul>
+<li>List接口提供了几种基础功能</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(String item)</span>  <span class="comment">//依次往后添加添加元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(String item, <span class="keyword">int</span> index)</span> <span class="comment">//在指定位置处添加元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(<span class="keyword">int</span> position)</span> <span class="comment">//删除第几个元素（索引从0开始）</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">(String item)</span> <span class="comment">//删除相同的元素</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">removeAll</span><span class="params">()</span> <span class="comment">//删除所有元素</span></span></span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E e)</span><span class="comment">//修改指定未知元素，返回原来值</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>需要注意的是：</p>
+<ol>
+<li><code>add</code>方法（不指定位置）默认是在末尾添加元素，这点可以由ArrayList特性记忆。</li>
+<li><code>add(item,index)</code>方法是用插入元素取代index位置，原index及其后元素均后移一位。同样可以由ArrayList记忆。</li>
+</ol>
+</li>
+<li><p>实现了List接口常见类有<code>ArrayList</code>、<code>LinkedList</code>、<code>Vector</code>、<code>Stack</code>。其中Vector和Stack使用了低效的同步策略，现在基本不用了被ArrayList和Deque替代。</p>
+</li>
+<li><p>List统统使用<code>java.util.Collections.sort</code>排序，结合<code>java.util.Comparator</code>实现自定义顺序。<strong>注意</strong>：Comparator需要实现的是<code>int compare()</code>方法而不是<code>compartTo()</code>方法。</p>
+</li>
+<li><p>List与数组的互相转换：</p>
+<ol>
+<li>List转换为数组：使用集合的方法<code>toArray(T[] array)</code>，例如：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] array = list.toArray(<span class="keyword">new</span> String[list.size()]);</span><br></pre></td></tr></table></figure>
+
+<p>这里使用了泛型，无需强制转换类型。如果使用无参<code>toArray()</code>则会出现强制转型错误。</p>
+<ol start="2">
+<li>数组转换为List：使用集合方法<code>Collections.addAll(arrayList, strArray)</code>，例如：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt; String&gt; arrayList = <span class="keyword">new</span> ArrayList&lt;String&gt;(strArray.length);</span><br><span class="line">Collections.addAll(arrayList, strArray);</span><br></pre></td></tr></table></figure>
+
+<p>如果使用<code>asList()</code>则会出现获得的List无法增删的问题，因为该List是静态的。</p>
+</li>
+<li><p>List合并：</p>
+<ol>
+<li>使用<code>List.addAll(Collection c)</code>方法，会把输入List全部添加到原List。</li>
+<li>使用<code>List.retainAll(Collection c)</code>方法，会取交集，只保留两个List相同的元素。</li>
+</ol>
+</li>
+</ul>
+<h3 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h3><ul>
+<li>LinkedList由于其特殊的链表结构，推荐遍历方式是使用Iterator遍历，但是它的<strong>ListIterator</strong>功能更加强大。<ul>
+<li><code>List.listIterator(int index)</code>可以获得指定位置的迭代器。</li>
+<li><code>ListIterator.hasNext()/next()</code>常用于向后遍历，向前则是<code>hasPrevious()/previous()</code></li>
+<li>ListIterator也有<code>add(E),remove(),E set(E e)</code>方法，建议使用。</li>
+<li>注意：ListIterator中，<code>remove()</code>的上个方法必须是<code>next/previous</code>，不能是<code>remove/add</code>。<code>add</code>不会影响下一次<code>next</code>但是会影响<code>previous</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="Java中的String"><a href="#Java中的String" class="headerlink" title="Java中的String"></a>Java中的String</h2><h3 id="CharSequence"><a href="#CharSequence" class="headerlink" title="CharSequence"></a>CharSequence</h3><ul>
+<li>CharSequence是一个接口，String、StringBuilder、StringBuffer都实现了这个接口。</li>
+<li>CharAt()、length()、toString()、toCharSequence()都是实现了这个接口的方法。</li>
+</ul>
+<h3 id="String的内存模型及实现"><a href="#String的内存模型及实现" class="headerlink" title="String的内存模型及实现"></a>String的内存模型及实现</h3><ul>
+<li>String底层使用字符数组实现，字符数组使用final修饰说明它的引用不能修改，同时这个数组定义为String类的private变量，向外没有提供直接修改的方法。本身String提供的连接等函数都是新建了一个String返回的。</li>
+<li>综上所述我们说String是定义后就不变的，我们最多只能修改指向String类对象的地址。本身String对象是不会变的。<strong>但是</strong>：实际上，在违反封装性的前提下我们可以使用反射修改String内char数组，只不过这不属于正规方法。</li>
+<li><strong>在JDK 1.8以后</strong>，String常量池移动到了堆中。如果是直接使用<code>String a=&quot;hello&quot;</code>定义的字符串，是放在常量池中的，如果是用<code>new</code>出来则放在常量池外部的堆中。但是new出来的字符串调用<code>intern()</code>获得的是常量池对应的引用。</li>
+<li><strong>注意</strong>：对应final修饰的String对象，编译器会依据不变的特性猜测，从而更大范围的利用常量池。例如</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String str1=<span class="string">"a"</span>;</span><br><span class="line"><span class="keyword">final</span> String str2=<span class="string">"a"</span>;</span><br><span class="line">String str3=str1+<span class="string">"b"</span>;</span><br><span class="line">String str4=str2+<span class="string">"b"</span>;</span><br><span class="line">String str5=<span class="string">"ab"</span>;</span><br><span class="line">str3==str5;<span class="comment">// false</span></span><br><span class="line">str4==str5;<span class="comment">// true</span></span><br><span class="line">String str6=<span class="keyword">new</span> String(str1);</span><br><span class="line">str6==str1;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String常用方法"><a href="#String常用方法" class="headerlink" title="String常用方法"></a>String常用方法</h3><ul>
+<li>Java中类似sprintf的字符串格式化方法：<code>String.format();</code>，用例见：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String fs;</span><br><span class="line">fs = String.format(<span class="string">"浮点型变量的值为 "</span> +</span><br><span class="line">                   <span class="string">"%f, 整型变量的值为 "</span> +</span><br><span class="line">                   <span class="string">" %d, 字符串变量的值为 "</span> +</span><br><span class="line">                   <span class="string">" %s"</span>, floatVar, intVar, stringVar);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>charAt(int index)</code>返回指定位置字符。</li>
+<li><code>int compareTo(String anotherString)</code>:字符对比。</li>
+<li><code>String substring(int beginIndex, int endIndex)</code>:返回字串（$[begin,end)$）。</li>
+<li>获得对应的charArray:<code>char[] toCharArray()</code>。</li>
+<li>用charArray构造String：<code>String String.valueOf(char[] data, int offset, int count)</code>，注意：这里用起点和长度定义。</li>
+<li><code>String.strip()</code>：去除前后部的空格字符，这里考虑到了Unicode所以空格字符不仅仅是ASCII码中的空格和控制字符。</li>
+<li><code>public String[] split(String regex)</code>:用于切分字符串，返回的是字符串数组。<ul>
+<li>注意：输入的是正则表达式，这意味着’\‘，’.’等正则式保留符号均需要转义才能正确工作。</li>
+<li>同时，用于分割的字符不会出现在结果中，例如 “boo:and:foo” 被“:”分割得到 { “boo”, “and”, “foo” }，被”o”分割得到 { “b”, “”, “:and:f” }。</li>
+</ul>
+</li>
+<li>查找字符出现的第一个位置：<code>int indexOf(String str, int fromIndex)</code>，查找出现的最后一个位置：<code>int lastIndexOf(String str, int fromIndex)</code>。其中fromIndex是查找开始位置。</li>
+</ul>
+<h3 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h3><h2 id="高精度数字类型"><a href="#高精度数字类型" class="headerlink" title="高精度数字类型"></a>高精度数字类型</h2><h2 id="Bit位相关位"><a href="#Bit位相关位" class="headerlink" title="Bit位相关位"></a>Bit位相关位</h2><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><blockquote>
+<p>可以参考<a href="https://www.runoob.com/java/java-regular-expressions.html" target="_blank" rel="noopener">正则表达式菜鸟教程</a></p>
+</blockquote>
+<ul>
+<li>Java缺少类似C的scanf那样能够处理”%s-&gt;%s”的输入规格化函数。但是Java的正则表达式更加强大，事实上也不是非常难用。</li>
+<li>正则表达式相关类主要位于<em>Java.util.regex</em>包下，最常用的<code>Pattern</code>和<code>Matcher</code>类。</li>
+<li>其中<code>Pattern</code>类主要用于正则式的预处理，<code>Matcher</code>类则用模式匹配输入的字符串。</li>
+</ul>
+<h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><ul>
+<li>Pattern一般使用静态方法<code>Pattern.complie(String regex)</code>获得，regex就是正则表达式</li>
+<li>Matcher则使用<code>Pattern.matcher(String input)</code>获得，也可以用<code>Matcher.reset(CharSequence input)</code>重置。</li>
+<li>Matcher的几个查找方法：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">lookingAt</td>
+<td align="left">只从输入字符串头部开始查找，但不是要求匹配整个串</td>
+</tr>
+<tr>
+<td align="center">matches</td>
+<td align="left">匹配整个串</td>
+</tr>
+<tr>
+<td align="center">find</td>
+<td align="left">从头部开始匹配，<strong>找到一个匹配子串就暂停</strong>，可以提取匹配的子串。<strong>暂停后可以继续查找下一部分输入串</strong>，直到查到输入串的末尾。</td>
+</tr>
+<tr>
+<td align="center">find(int start)</td>
+<td align="left">从指定位置开始find查找。</td>
+</tr>
+</tbody></table>
+<p>以上方法均返回boolean表示成不成功。</p>
+<ul>
+<li>可见最复杂也最好用的是<code>find</code>方法。</li>
+</ul>
+<p>举个例子，我们输入”AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;”，我们想提取”AB CD EF GH IJ KL”则有</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Pattern pattern=Pattern.compile(<span class="string">"([A-Z]+)-&gt;([A-Z]+);"</span>);</span><br><span class="line">Matcher matcher=pattern.matcher(<span class="string">"AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;"</span>);</span><br><span class="line"><span class="keyword">while</span>(matcher.find()) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=matcher.groupCount();i++) &#123;</span><br><span class="line">        System.out.println(matcher.group(i));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AB</span></span><br><span class="line"><span class="comment">CD</span></span><br><span class="line"><span class="comment">EF</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>我们想提取”AB-&gt;CD; EF-&gt;GH; IJ-&gt;KL;”则有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Pattern pattern=Pattern.compile(<span class="string">"([A-Z]+)-&gt;([A-Z]+);"</span>);</span><br><span class="line">Matcher matcher=pattern.matcher(<span class="string">"AB-&gt;CD;EF-&gt;GH;IJ-&gt;KL;"</span>);</span><br><span class="line"><span class="keyword">while</span>(matcher.find()) &#123;</span><br><span class="line">    System.out.println(matcher.group());</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">AB-&gt;CD;</span></span><br><span class="line"><span class="comment">EF-&gt;GH;</span></span><br><span class="line"><span class="comment">...</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意正则式中”(XX)”的使用，用于表示子匹配组，<code>group()</code>输出整个正则式的匹配串，<code>group(int i)，i&gt;=1</code>输出该次匹配的第i个子匹配组。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/12/Java-%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%972020-07-11/" rel="prev" title="Java 学习心得2020-07-11">
+      <i class="fa fa-chevron-left"></i> Java 学习心得2020-07-11
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/24/%E7%AE%97%E6%B3%95%E7%BC%96%E7%A8%8B%E5%BF%83%E5%BE%97-1/" rel="next" title="算法编程心得-1">
+      算法编程心得-1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java常用库-算法常用-心得1"><span class="nav-number">1.</span> <span class="nav-text">Java常用库(算法常用)-心得1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection、Map接口关系"><span class="nav-number">1.1.</span> <span class="nav-text">Collection、Map接口关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的队列"><span class="nav-number">1.2.</span> <span class="nav-text">Java中的队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的链表"><span class="nav-number">1.3.</span> <span class="nav-text">Java中的链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List接口"><span class="nav-number">1.3.1.</span> <span class="nav-text">List接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedList"><span class="nav-number">1.3.2.</span> <span class="nav-text">LinkedList</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的String"><span class="nav-number">1.4.</span> <span class="nav-text">Java中的String</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CharSequence"><span class="nav-number">1.4.1.</span> <span class="nav-text">CharSequence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String的内存模型及实现"><span class="nav-number">1.4.2.</span> <span class="nav-text">String的内存模型及实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#String常用方法"><span class="nav-number">1.4.3.</span> <span class="nav-text">String常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StringBuilder"><span class="nav-number">1.4.4.</span> <span class="nav-text">StringBuilder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高精度数字类型"><span class="nav-number">1.5.</span> <span class="nav-text">高精度数字类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bit位相关位"><span class="nav-number">1.6.</span> <span class="nav-text">Bit位相关位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.7.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单使用"><span class="nav-number">1.7.1.</span> <span class="nav-text">简单使用</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">糊涂虫</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">糊涂虫</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
